@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Custom colors for the website */
+:root {
+  --color-mine-shaft-50: #f6f6f6;
+  --color-mine-shaft-100: #e7e7e7;
+  --color-mine-shaft-200: #d1d1d1;
+  --color-mine-shaft-300: #b0b0b0;
+  --color-mine-shaft-400: #888888;
+  --color-mine-shaft-500: #6d6d6d;
+  --color-mine-shaft-600: #5d5d5d;
+  --color-mine-shaft-700: #4f4f4f;
+  --color-mine-shaft-800: #454545;
+  --color-mine-shaft-900: #3d3d3d;
+  --color-mine-shaft-950: #2d2d2d;
+  --color-electric-violet-50: #faf5ff;
+  --color-electric-violet-100: #f3e9fe;
+  --color-electric-violet-200: #e9d6fe;
+  --color-electric-violet-300: #d8b6fc;
+  --color-electric-violet-400: #bf88f8;
+  --color-electric-violet-500: #a75af2;
+  --color-electric-violet-600: #8a2be2;
+  --color-electric-violet-700: #7d28c8;
+  --color-electric-violet-800: #6a25a4;
+  --color-electric-violet-900: #572083;
+  --color-electric-violet-950: #3b0a61;
+
+
+}
