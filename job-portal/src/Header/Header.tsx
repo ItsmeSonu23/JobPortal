@@ -2,12 +2,12 @@ import { Avatar, Indicator } from "@mantine/core"
 import { IoIosNotifications } from "react-icons/io"
 import { IoSettingsOutline } from "react-icons/io5"
 import { TbCloverFilled } from "react-icons/tb"
-import { NavLinks } from "./Navlinks"
+import { NavLinks } from "./NavLinks"
 
 export const Header = () => {
     return (
         // header of the page 
-        <div className="w-full px-6 bg-[var(--color-mine-shaft-950) h-28 text-white flex justify-between items-center">
+        <div className="w-full px-6 bg-[var(--color-mine-shaft-950)] h-28 font-['Karla'] text-white flex justify-between items-center">
             {/* this is logo of the website */}
             <div className="flex gap-3 items-center text-[var(--color-electric-violet-500)]">
                 <TbCloverFilled className="text-5xl" />
