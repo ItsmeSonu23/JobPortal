@@ -10,8 +10,8 @@ export const NavLinks = () => {
             <NavLink to={"/find-talent"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
                 Find Talent
             </NavLink>
-            <NavLink to={"/upload-job"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
-                Upload Job
+            <NavLink to={"/post-job"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
+                Post Job
             </NavLink>
             <NavLink to={"/about"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
                 About Us

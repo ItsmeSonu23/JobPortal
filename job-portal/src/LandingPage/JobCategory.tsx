@@ -20,7 +20,7 @@ export const JobCategory = () => {
                 {
                     jobCategory.map((category, index) => <Carousel.Slide>
 
-                        <div className="flex flex-col items-center w-64 gap-2 border border-[var(--color-electric-violet-500)] p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_darkorchid] my-5">
+                        <div key={index} className="flex flex-col items-center w-64 gap-2 border border-[var(--color-electric-violet-500)] p-5 rounded-xl hover:cursor-pointer hover:shadow-[0_0_5px_2px_darkorchid] my-5">
                             <div className="p-2 bg-[var(--color-electric-violet-500)] rounded-full">
                                 <img className="h-8 w-8" src={`Categories/${category.name}.png`} alt={category.name} />
                             </div>

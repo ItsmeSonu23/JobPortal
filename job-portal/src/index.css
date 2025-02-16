@@ -27,3 +27,16 @@
 
 
 }
+
+@layer base{
+  ol,ul{
+    list-style: revert;
+    font-size: medium;
+  }
+  p{
+    font-size: medium;
+  }
+  li{
+    margin-left: 1em;
+  }
+}
