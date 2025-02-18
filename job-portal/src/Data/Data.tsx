@@ -449,15 +449,15 @@ export const profileData = [
         certifications: [
             {
                 name: "Java Backend Development",
-                issuer:"Google",
-                issueDate:"Aug 2023",
-                certificateId:"LCWD9509"
+                issuer: "Google",
+                issueDate: "Aug 2023",
+                certificateId: "LCWD9509"
             },
             {
                 name: "React Frontend Development",
-                issuer:"Google",
-                issueDate:"Aug 2023",
-                certificateId:"LCWD9508"
+                issuer: "Google",
+                issueDate: "Aug 2023",
+                certificateId: "LCWD9508"
             }
         ],
         location: "New York, USA",
@@ -466,24 +466,186 @@ export const profileData = [
 ]
 
 export const feilds = [
-    {label:"Job Title",placeholder:"Enter Job Title", options:["Designer","Developer","Product Manager","Marketing Specialist","Data Analyst","Sales Executive","Content Writer","Customer Support"]},
-    {label:"Company",placeholder:"Enter company Name",options:["Google","Microsoft","Meta","Netflix","Adobe","Facebook","Amazon","Apple","Spotify"]},
-    {label:"Expirience",placeholder:"Enter your Expirience",options:["Entry Level","Intermediate","Expert"]},
-    {label:"Job Type",placeholder:"Enter Job Type",options:["Full Time","Part Time","Contract","Freelance"]},
-    {label:"Location",placeholder:"Enter your Location",options:["Delhi","New York","San Francisco","London","Berlin","Tokyo","Sydney","Torento"]},
-    {label:"Salary",placeholder:"Enter your salary",options:["10 LPA","15 LPA","20 LPA","25 LPA","30 LPA","35 LPA","40 LPA","45 LPA"]}
+    { label: "Job Title", placeholder: "Enter Job Title", options: ["Designer", "Developer", "Product Manager", "Marketing Specialist", "Data Analyst", "Sales Executive", "Content Writer", "Customer Support"] },
+    { label: "Company", placeholder: "Enter company Name", options: ["Google", "Microsoft", "Meta", "Netflix", "Adobe", "Facebook", "Amazon", "Apple", "Spotify"] },
+    { label: "Location", placeholder: "Enter your Location", options: ["Delhi", "New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Torento"] },
+    { label: "Expirience", placeholder: "Enter your Expirience", options: ["Entry Level", "Intermediate", "Expert"] },
+    { label: "Job Type", placeholder: "Enter Job Type", options: ["Full Time", "Part Time", "Contract", "Freelance"] },
+    { label: "Salary", placeholder: "Enter your salary", options: ["10 LPA", "15 LPA", "20 LPA", "25 LPA", "30 LPA", "35 LPA", "40 LPA", "45 LPA"] }
 ]
 
 export const content = '<h4>About the Job</h4><p>Write the description here...</p><h4>Responsibilities</h4><ul><li>Add responsibilities here...</li></ul><h4>Qualifications and Skills Set</h4><ul><li>Add Required qualifications and skills set here...</li></ul>';
 
 
-export const card=[
-    {name:"Location",icon:IconMapPin, value:"New York"},
-    {name:"Expirience",icon:IconBriefcase, value:"Expert"},
-    {name:"Salary", icon:IconPremiumRights, value:"48 LPA"},
-    {name:"Job Type", icon:IconRecharging, value:"Full Time"}
+export const card = [
+    { name: "Location", icon: IconMapPin, value: "New York" },
+    { name: "Expirience", icon: IconBriefcase, value: "Expert" },
+    { name: "Salary", icon: IconPremiumRights, value: "48 LPA" },
+    { name: "Job Type", icon: IconRecharging, value: "Full Time" }
 ]
 
-export const skills=["React","Node Js","Spring Boot","Java","Python","MongoDB","Express","Django","PostgreSQL"]
+export const skills = ["React", "Node Js", "Spring Boot", "Java", "Python", "MongoDB", "Express", "Django", "PostgreSQL"]
 
 export const desc = "<h4>About the job</h4><p>Here at UIHT, we are a passionate, fun-loving, growing team. We are looking for passionate programmers who want to solve technical challenges and learn and incorporate new technologies into their skillset to join our team and grow with us. In this role, you would use various tech stacks, including Laravel, Node JS (Adonis JS), Vue JS, React JS, Next Js, Redis, MySQL, MongoDB, and CSS. You will be engaged across the software development life cycle to create and modify platforms and capabilities in a collaborative and agile environment.</p><h4>Responsibilities</h4><ul><li>Design, build, test, and deploy software applications and features</li><li>Collaborate with cross-functional teams to define, design, and ship new features</li><li>Write clean, efficient, and maintainable code</li><li>Identify and resolve performance and scalability issues</li><li>Participate in code reviews to ensure high-quality code standards</li><li>Contribute to the continuous improvement of development processes and methodologies</li><li>Stay up to date with the latest industry trends, technologies, and best practices</li></ul><h4>Requirements</h4><ul><li>Proven experience with web development using Laravel, Node JS (Adonis JS), Vue JS, React JS, Next Js, and other modern technologies</li><li>Strong understanding of databases such as MySQL and MongoDB, as well as caching with Redis</li><li>Experience with version control tools like Git</li><li>Knowledge of Agile development methodologies and ability to work in a fast-paced environment</li><li>Excellent problem-solving and debugging skills</li><li>Strong communication and collaboration skills</li><li>Ability to work independently and as part of a team</li><li>Degree in Computer Science or related field, or equivalent practical experience</li></ul><h4>Nice to have</h4><ul><li>Experience with cloud services (AWS, GCP, etc.)</li><li>Familiarity with Docker and containerization</li><li>Experience with CI/CD pipelines</li><li>Knowledge of security best practices in web development</li></ul><h4>Why join us?</h4><ul><li>Opportunity to work with cutting-edge technologies and grow your skillset</li><li>Collaborative and supportive work environment</li><li>Room for personal and professional growth within the company</li><li>Competitive salary and benefits package</li><li>Flexible work hours and remote work options</li></ul><p>If you’re passionate about technology and eager to contribute to a growing team, we would love to hear from you!</p>";
+
+
+export const companyData =
+{
+    Name: "Google",
+    Overview: "Google, founded in 1998 by Larry Page and Sergey Brin, is a global technology company primarily known for its search engine. It offers a range of products and services, including Google Ads, Google Cloud, YouTube, Android, and Google Maps. Google’s parent company, Alphabet Inc., oversees various other ventures, such as self-driving cars (Waymo) and smart devices (Nest). With innovations in artificial intelligence, machine learning, and data analytics, Google dominates the online advertising space and plays a significant role in shaping the digital landscape, impacting billions of users worldwide through its diverse offerings.",
+    Industry: "Internet, Software & Technology Services",
+    Size: "100,00+ Employees",
+    Website: "https://www.google.com",
+    HeadQuarters: "Mountain view, California, United States",
+    Specialities: [
+        "Search Engine",
+        "Online Advertising",
+        "Cloud Computing",
+        "Software",
+        "Hardware",
+        "AI & Machine Learning",
+        "Mobile Operating System",
+        "Consumer Electronics"
+    ]
+}
+
+export const similar = [
+    {
+        name: "Meta",
+        employees: 58604
+    },
+    {
+        name: "Microsoft",
+        employees: 221000
+    },
+    {
+        name: "Amazon",
+        employees: 1600000
+    },
+    {
+        name: "Google",
+        employees: 164000
+    },
+    {
+        name: "Netflix",
+        employees: 100000
+    },
+    {
+        name: "Flipkart",
+        employees: 251000
+    }
+];
+
+export const activeJobs = [
+    {
+        "jobTitle": "Cybersecurity Specialist",
+        "location": "Paris, France",
+        "posted": "10 days ago"
+    },
+    {
+        "jobTitle": "Software Engineer",
+        "location": "San Francisco, USA",
+        "posted": "3 days ago"
+    },
+    {
+        "jobTitle": "Data Scientist",
+        "location": "London, UK",
+        "posted": "5 days ago"
+    },
+    {
+        "jobTitle": "Product Manager",
+        "location": "Berlin, Germany",
+        "posted": "2 weeks ago"
+    },
+    {
+        "jobTitle": "UX Designer",
+        "location": "New York, USA",
+        "posted": "1 week ago"
+    },
+    {
+        "jobTitle": "Machine Learning Engineer",
+        "location": "Toronto, Canada",
+        "posted": "6 days ago"
+    },
+    {
+        "jobTitle": "Marketing Strategist",
+        "location": "Sydney, Australia",
+        "posted": "12 days ago"
+    },
+    {
+        "jobTitle": "Full Stack Developer",
+        "location": "Austin, USA",
+        "posted": "1 week ago"
+    },
+    {
+        "jobTitle": "Business Analyst",
+        "location": "Amsterdam, Netherlands",
+        "posted": "9 days ago"
+    },
+    {
+        "jobTitle": "Cloud Solutions Architect",
+        "location": "Singapore",
+        "posted": "4 days ago"
+    }
+];
+
+
+export const drafts = [
+    {
+        "jobTitle": "Junior Web Developer",
+        "location": "New York, USA",
+        "posted": "4 days ago"
+    },
+    {
+        "jobTitle": "Marketing Coordinator",
+        "location": "Los Angeles, USA",
+        "posted": "7 days ago"
+    },
+    {
+        "jobTitle": "Graphic Designer",
+        "location": "Toronto, Canada",
+        "posted": "10 days ago"
+    },
+    {
+        "jobTitle": "SEO Specialist",
+        "location": "Berlin, Germany",
+        "posted": "5 days ago"
+    },
+    {
+        "jobTitle": "Content Writer",
+        "location": "London, UK",
+        "posted": "6 days ago"
+    },
+    {
+        "jobTitle": "Database Administrator",
+        "location": "San Francisco, USA",
+        "posted": "2 weeks ago"
+    },
+    {
+        "jobTitle": "Mobile App Developer",
+        "location": "Paris, France",
+        "posted": "8 days ago"
+    },
+    {
+        "jobTitle": "Sales Executive",
+        "location": "Sydney, Australia",
+        "posted": "12 days ago"
+    },
+    {
+        "jobTitle": "Human Resources Assistant",
+        "location": "Toronto, Canada",
+        "posted": "3 days ago"
+    },
+    {
+        "jobTitle": "DevOps Engineer",
+        "location": "Amsterdam, Netherlands",
+        "posted": "9 days ago"
+    }
+];
+
+
+export const profileFeild = [
+    { label: "Job Title", placeholder: "Enter Job Title", options: ["Designer", "Developer", "Product Manager", "Marketing Specialist", "Data Analyst", "Sales Executive", "Content Writer", "Customer Support"], value: "Software Enginner", leftSection : IconBriefcase },
+    { label: "Company", placeholder: "Enter company Name", options: ["Google", "Microsoft", "Meta", "Netflix", "Adobe", "Facebook", "Amazon", "Apple", "Spotify"], value:"Google", leftSection: IconBriefcase },
+    { label: "Location", placeholder: "Enter your Location", options: ["Delhi", "New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Torento"], value:"New york , USA", leftSection : IconMapPin },
+]

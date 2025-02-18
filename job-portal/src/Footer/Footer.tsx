@@ -1,9 +1,11 @@
 import { IconBrandFacebook, IconBrandInstagram, IconBrandX } from "@tabler/icons-react"
 import { TbCloverFilled } from "react-icons/tb"
 import { footerLinks } from "../Data/Data"
+import { useLocation } from "react-router-dom"
 
 export const Footer = () => {
-    return <div  className="pt-20 pb-10 bg-[var(--color-mine-shaft-950)] flex gap-5 justify-around font-['Karla']">
+    const location = useLocation()
+    return location.pathname != "/signup" &&  location.pathname != "/login"  ? <div className="pt-20 pb-10 bg-[var(--color-mine-shaft-950)] flex gap-5 justify-around font-['Karla']">
         <div className="w-1/4 flex flex-col gap-4">
             <div className="flex gap-1 items-center text-[var(--color-electric-violet-500)]">
                 <TbCloverFilled className="text-3xl" />
@@ -21,22 +23,22 @@ export const Footer = () => {
             </div>
         </div>
         {
-            footerLinks.map((items,index)=>{
-                    return (
-                        <div key={index}>
-                            <div className="text-lg font-semibold mb-4 text-[var(--color-electric-violet-500)]">{items.title}</div>
-                            {
-                                items.link.map((links,index)=>{
-                                    return(
-                                        <div className="text-[var(--color-mine-shaft-300)] text-sm hover:text-[var(--color-electric-violet-500)] cursor-pointer mb-1 hover:translate-x-2 transition duration-300 ease-in-out" key={index}>
-                                                {links}
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                    )
+            footerLinks.map((items, index) => {
+                return (
+                    <div key={index}>
+                        <div className="text-lg font-semibold mb-4 text-[var(--color-electric-violet-500)]">{items.title}</div>
+                        {
+                            items.link.map((links, index) => {
+                                return (
+                                    <div className="text-[var(--color-mine-shaft-300)] text-sm hover:text-[var(--color-electric-violet-500)] cursor-pointer mb-1 hover:translate-x-2 transition duration-300 ease-in-out" key={index}>
+                                        {links}
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                )
             })
         }
-    </div>
+    </div> : <></>
 }

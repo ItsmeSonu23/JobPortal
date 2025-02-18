@@ -3,7 +3,7 @@ import { IconBookmark } from "@tabler/icons-react"
 import { NavLink } from "react-router-dom"
 import { card, desc, skills } from "../Data/Data"
 import DOMPurify from 'dompurify'
-export const JobDescription = () => {
+export const JobDescription = (props:any) => {
     const d = DOMPurify.sanitize(desc)
     return <div className="w-2/3">
         <div className="flex justify-between">
@@ -17,10 +17,12 @@ export const JobDescription = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-2 items-center">
-                <NavLink to={"/apply-job"}>
-                    <Button color="darkorchid" size="sm" variant="light">Apple</Button>
+                <NavLink to={"/apply-jobs"}>
+                    <Button color="darkorchid" size="sm" variant="light">{props.edit?"Edit":"Apply"}</Button>
                 </NavLink>
-                <IconBookmark className="text-[(--color-electric-violet-400)] cursor-pointer" stroke={1.5} />
+                {
+                    props.edit? <Button color="red.5" size="sm" variant="outline">Delete</Button>:<IconBookmark className="text-[(--color-electric-violet-400)] cursor-pointer" stroke={1.5} />
+                }
             </div>
         </div>
         <Divider my="xl" />
@@ -66,7 +68,7 @@ export const JobDescription = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 items-center">
-                    <NavLink to={"/company-page"}>
+                    <NavLink to={"/company"}>
                         <Button color="darkorchid" variant="light">Company Profile</Button>
                     </NavLink>
                    

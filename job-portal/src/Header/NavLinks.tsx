@@ -13,8 +13,14 @@ export const NavLinks = () => {
             <NavLink to={"/post-job"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
                 Post Job
             </NavLink>
-            <NavLink to={"/about"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
-                About Us
+            <NavLink to={"/posted-job"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
+                Posted Jobs
+            </NavLink>
+            <NavLink to={"/job-history"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
+                Job History
+            </NavLink>
+            <NavLink to={"/signup"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
+                SignUp
             </NavLink>
         </div>
     )
