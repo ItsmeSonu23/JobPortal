@@ -1,4 +1,5 @@
-import { JobHistory } from "../JobHistory/JobHistory"
+import { JobHistory } from "../Components/JobHistory/JobHistory"
+
 
 export const JobHistoryPage = () => {
     return (

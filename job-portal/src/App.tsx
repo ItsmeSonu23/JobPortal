@@ -4,21 +4,22 @@ import '@mantine/carousel/styles.css';
 import '@mantine/tiptap/styles.css';
 import '@mantine/dates/styles.css';
 import { Divider, MantineProvider } from '@mantine/core';
-import { HomePage } from './Pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Header } from './Components/Header/Header';
 import { FindJobs } from './Pages/FindJobs';
-import { Header } from './Header/Header';
-import { Footer } from './Footer/Footer';
-import { FindTalentPage } from './Pages/FindTalentPage';
-import { TalentProfile } from './Pages/TalentProfile';
-import { PostJobPage } from './Pages/PostJobPage';
-import { JobDescriptionPage } from './Pages/JobDescriptionPage';
+import { Footer } from './Components/Footer/Footer';
 import { ApplyJobPage } from './Pages/ApplyJobPage';
 import { CompanyPage } from './Pages/CompanyPage';
-import { PostedJobPage } from './Pages/PostedJobPage';
+import { FindTalentPage } from './Pages/FindTalentPage';
+import { HomePage } from './Pages/HomePage';
+import { JobDescriptionPage } from './Pages/JobDescriptionPage';
 import { JobHistoryPage } from './Pages/JobHistoryPage';
-import { SignupPage } from './Pages/SignupPage';
+import { PostedJobPage } from './Pages/PostedJobPage';
+import { PostJobPage } from './Pages/PostJobPage';
 import { ProfilePage } from './Pages/ProfilePage';
+import { SignupPage } from './Pages/SignupPage';
+import { TalentProfile } from './Pages/TalentProfile';
+
 
 function App() {
 

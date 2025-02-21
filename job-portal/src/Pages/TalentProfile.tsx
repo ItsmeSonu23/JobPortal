@@ -1,9 +1,9 @@
 import { Button, Divider } from "@mantine/core"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { NavLink } from "react-router-dom"
-import { Profile } from "../TalentProfile/Profile"
 import {  profileData } from "../Data/Data"
-import { RecommendedTalemt } from "../TalentProfile/RecommendedTalent"
+import { RecommendedTalemt } from "../Components/TalentProfile/RecommendedTalent"
+import { Profile } from "../Components/TalentProfile/Profile"
 
 export const TalentProfile = () => {
     return <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-10 py-4">

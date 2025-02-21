@@ -1,6 +1,6 @@
 import { TbCloverFilled } from "react-icons/tb"
-import { Signup } from "../SignupLogin/Signup"
-import { Login } from "../SignupLogin/Login"
+import { Signup } from "../Components/SignupLogin/Signup"
+import { Login } from "../Components/SignupLogin/Login"
 import { useLocation } from "react-router-dom"
 
 export const SignupPage = () => {

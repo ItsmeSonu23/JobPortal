@@ -1,4 +1,5 @@
-import { PostJob } from "../PostJob/PostJob"
+import { PostJob } from "../Components/PostJob/PostJob"
+
 
 export const PostJobPage = () => {
     return <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-10 py-4">

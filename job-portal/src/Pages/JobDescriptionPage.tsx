@@ -1,8 +1,8 @@
 import { Button } from "@mantine/core"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { NavLink } from "react-router-dom"
-import { JobDescription } from "../JobDescription/JobDescription"
-import { RecommendedJob } from "../JobDescription/RecommendedJob"
+import { JobDescription } from "../Components/JobDescription/JobDescription"
+import { RecommendedJob } from "../Components/JobDescription/RecommendedJob"
 
 export const JobDescriptionPage = ()=>{
     return <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-10 py-4">

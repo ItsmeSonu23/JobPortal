@@ -1,6 +1,6 @@
 import { Divider } from "@mantine/core"
-import { SearchBar } from "../FindJobs/SearchBar"
-import { Jobs } from "../FindJobs/Jobs"
+import { SearchBar } from "../Components/FindTalent/SearchBar"
+import { Jobs } from "../Components/FindJobs/Jobs"
 
 export const FindJobs = ()=>{
     return(

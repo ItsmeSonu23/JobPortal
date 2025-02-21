@@ -1,6 +1,6 @@
 import { Divider } from "@mantine/core"
-import { SearchBar } from "../FindTalent/SearchBar"
-import { Talents } from "../FindTalent/Talents"
+import { SearchBar } from "../Components/FindTalent/SearchBar"
+import { Talents } from "../Components/FindTalent/Talents"
 
 export const FindTalentPage = () => {
     return <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins']">
