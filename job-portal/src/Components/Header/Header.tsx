@@ -1,13 +1,15 @@
-import { Indicator } from "@mantine/core"
+import { Button, Indicator } from "@mantine/core"
 import { IoIosNotifications } from "react-icons/io"
 import { IoSettingsOutline } from "react-icons/io5"
 import { TbCloverFilled } from "react-icons/tb"
 import { NavLinks } from "./NavLinks"
-import { useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { ProfileMenu } from "./ProfileMenu"
+import { useSelector } from "react-redux"
 
 export const Header = () => {
     const location = useLocation()
+    const user = useSelector((state:any)=>state.user)
     return ( location.pathname != "/signup" && location.pathname != "/login" ?
         // header of the page 
         <div className="w-full px-6 bg-[var(--color-mine-shaft-950)] h-28 font-['Karla'] text-white flex justify-between items-center">
@@ -25,11 +27,11 @@ export const Header = () => {
             {/* Profile icon and notification section of the page */}
             <div className="flex gap-4 items-center ">
                 {/* Name of the user and avatar with drowpdown menu option related to the avatar*/}
-                <ProfileMenu/>
-                <div className="p-2 rounded-full bg-[var(--color-mine-shaft-900)]">
+                {user?<ProfileMenu/>:<NavLink to={"/login"}><Button variant="filled" color="darkorchid">Login</Button></NavLink>}
+                {/* <div className="p-2 rounded-full bg-[var(--color-mine-shaft-900)]">
                     {/* Settings icon */}
-                    <IoSettingsOutline className="text-2xl" />
-                </div>
+                    {/* <IoSettingsOutline className="text-2xl" /> */}
+                {/* </div> */} 
                 <div className="p-2 rounded-full bg-[var(--color-mine-shaft-900)]">
                     {/* Indicator component from mantine for blinking of notification */}
                     <Indicator color="#8a2be2" offset={6} size={8} processing>

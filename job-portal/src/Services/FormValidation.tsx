@@ -18,3 +18,18 @@ export const signupValidation = (name: string, value: string) => {
             return null;
     }
 };
+
+export const loginValidation = (name: string, value: string) => {
+    switch (name) {
+        case "email":
+            if (value.length === 0) return "Email is required";
+            return null;
+
+        case "password":
+            if (value.length === 0) return "Password is required";
+            return null;
+
+        default:
+            return null;
+    }
+};

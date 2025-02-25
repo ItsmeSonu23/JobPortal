@@ -645,7 +645,7 @@ export const drafts = [
 
 
 export const profileFeild = [
-    { label: "Job Title", placeholder: "Enter Job Title", options: ["Designer", "Developer", "Product Manager", "Marketing Specialist", "Data Analyst", "Sales Executive", "Content Writer", "Customer Support"], value: "Software Enginner", leftSection : IconBriefcase },
-    { label: "Company", placeholder: "Enter company Name", options: ["Google", "Microsoft", "Meta", "Netflix", "Adobe", "Facebook", "Amazon", "Apple", "Spotify"], value:"Google", leftSection: IconBriefcase },
-    { label: "Location", placeholder: "Enter your Location", options: ["Delhi", "New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Torento"], value:"New york , USA", leftSection : IconMapPin },
+    { label: "Job Title", placeholder: "Enter Job Title", options: ["Designer", "Developer", "Product Manager", "Marketing Specialist", "Data Analyst", "Sales Executive", "Content Writer", "Customer Support"], leftSection : IconBriefcase },
+    { label: "Company", placeholder: "Enter company Name", options: ["Google", "Microsoft", "Meta", "Netflix", "Adobe", "Facebook", "Amazon", "Apple", "Spotify"],  leftSection: IconBriefcase },
+    { label: "Location", placeholder: "Enter your Location", options: ["Delhi", "New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Torento"], leftSection : IconMapPin },
 ]
