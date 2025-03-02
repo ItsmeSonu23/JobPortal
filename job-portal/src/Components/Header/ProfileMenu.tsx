@@ -8,6 +8,7 @@ import { removeUser } from "../../Slices/UserSlice"
 export const ProfileMenu = () => {
     const [opened, setOpened] = useState(false)
     const user = useSelector((state:any)=>state.user)
+    const profile = useSelector((state:any)=> state.profile)
     const dispatch = useDispatch()
     const handleLogout = () => {
         dispatch(removeUser())
@@ -20,7 +21,7 @@ export const ProfileMenu = () => {
                         {/* Name of the user */}
                         <div className="">{user.name}</div>
                         {/* Avatar icon imported from mantine for the page */}
-                        <Avatar src="/images/avatar.png" alt="it's  me" />
+                        <Avatar src={profile.picture?`data:image/jpeg;base64,${profile.picture}`:"/avatar.png" } alt="it's  me" />
 
                     </div>
                 </Menu.Target>

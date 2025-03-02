@@ -1,5 +1,5 @@
 import { ActionIcon } from "@mantine/core"
-import { IconDeviceFloppy, IconPencil, IconBriefcase, IconMapPin } from "@tabler/icons-react"
+import { IconDeviceFloppy, IconPencil, IconBriefcase, IconMapPin, IconCheck, IconX } from "@tabler/icons-react"
 import { profileFeild } from "../../Data/Data"
 import { SelectInputt } from "./SelectInputt"
 import { useState } from "react"
@@ -11,33 +11,44 @@ export const Info = () => {
 
     const dispatch = useDispatch()
     const [edit, setEdit] = useState(false)
-    const user = useSelector((state:any)=> state.user)
-    const profile = useSelector((state:any)=>state.profile)
-    const handleEdit= ()=>{
-        if(!edit){
+    const user = useSelector((state: any) => state.user)
+    const profile = useSelector((state: any) => state.profile)
+    const handleEdit = () => {
+        if (!edit) {
             setEdit(true)
-            form.setValues({jobTitle: profile.jobTitle, company: profile.company ,location:profile.location})
-        }else{
+            form.setValues({ jobTitle: profile.jobTitle, company: profile.company, location: profile.location })
+        } else {
 
             setEdit(false)
-            let updatedProfile = {...profile,...form.getValues()}
-            dispatch(changeProfile(updatedProfile))
-            successNotification("Profile updated successfully","Your profile has been updated")
-            
+
         }
     }
 
     const form = useForm({
         mode: 'controlled',
-        initialValues: { jobTitle: '', company: '' ,location:''}
-      });
+        initialValues: { jobTitle: '', company: '', location: '' }
+    });
+
+    const handleSave = ()=>{
+        setEdit(false)
+        let updatedProfile = { ...profile, ...form.getValues() }
+        dispatch(changeProfile(updatedProfile))
+        successNotification("Profile updated successfully", "Your profile has been updated")
+    }
     return (
         <>
-            <div className="text-3xl font-semibold flex justify-between">{user.name}<ActionIcon onClick={() => handleEdit()} variant="subtle" color="darkorchid" size={"lg"}>
-                {
-                    edit? <IconDeviceFloppy className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />
-                }
-            </ActionIcon>
+            <div className="text-3xl font-semibold flex justify-between">{user.name}
+                <div>{edit && <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={"lg"}>
+
+                    <IconCheck className="h-4/5 w-4/5" />
+
+                </ActionIcon>}
+                    <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit?"red.8":"darkorchid"} size={"lg"}>
+                        {
+                            edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />
+                        }
+                    </ActionIcon>
+                </div>
             </div>
             {
                 edit ? <> <div className="flex gap-10 [&>*]:w-1/2">

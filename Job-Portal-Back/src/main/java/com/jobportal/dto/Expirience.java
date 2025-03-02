@@ -13,7 +13,7 @@ public class Expirience {
     private String title;
     private String company;
     private String location;
-    private LocalDateTime starDate;
+    private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Boolean working;
     private String description;

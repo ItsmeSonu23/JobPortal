@@ -1,15 +1,29 @@
 import { Button, Indicator } from "@mantine/core"
 import { IoIosNotifications } from "react-icons/io"
-import { IoSettingsOutline } from "react-icons/io5"
 import { TbCloverFilled } from "react-icons/tb"
 import { NavLinks } from "./NavLinks"
 import { NavLink, useLocation } from "react-router-dom"
 import { ProfileMenu } from "./ProfileMenu"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { getProfile } from "../../Services/ProfileService"
+import { setProfile } from "../../Slices/ProfileSlice"
 
 export const Header = () => {
     const location = useLocation()
     const user = useSelector((state:any)=>state.user)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        getProfile(user.profileId)
+            .then((res: any) => {
+                dispatch(setProfile(res))
+
+            })
+            .catch((err: any) => {
+                console.log(err);
+
+            })
+    }, [])
     return ( location.pathname != "/signup" && location.pathname != "/login" ?
         // header of the page 
         <div className="w-full px-6 bg-[var(--color-mine-shaft-950)] h-28 font-['Karla'] text-white flex justify-between items-center">
@@ -43,3 +57,4 @@ export const Header = () => {
         </div>:<></>
     )
 }
+

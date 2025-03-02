@@ -1,6 +1,7 @@
 package com.jobportal.service;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,11 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ProfileDto updateProfile(ProfileDto profileDto) throws JobPortalException {
-        profileRepo.findById(profileDto.getId()).orElseThrow(() -> new JobPortalException("PROFILE_NOT_FOUND"));
+       Profile existingProfile =  profileRepo.findById(profileDto.getId()).orElseThrow(() -> new JobPortalException("PROFILE_NOT_FOUND"));
+        if (profileDto.getPicture() != null) {
+            existingProfile.setPicture(Base64.getDecoder().decode(profileDto.getPicture()));
+        }
+    
         profileRepo.save(modelMapper.map(profileDto, Profile.class));
         // Convert the Profile entity to ProfileDto using ModelMapper
         return profileDto;
