@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jobportal.dto.ProfileDto;
 import com.jobportal.service.ProfileService;
 
+/**
+ * REST controller for managing user profile operations.
+ * Handles profile retrieval and updates.
+ */
 @RestController
 @CrossOrigin("*")
 @Validated
@@ -23,12 +27,26 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+    /**
+     * Retrieves a user profile by its ID.
+     *
+     * @param id The ID of the profile to retrieve
+     * @return ResponseEntity containing the profile information
+     * @throws Exception if profile retrieval fails
+     */
     @GetMapping("/get/{id}")
     public ResponseEntity<ProfileDto> getProfiles(@PathVariable Long id) throws Exception{
         return new ResponseEntity<>(profileService.getProfile(id),HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    /**
+     * Updates an existing user profile.
+     *
+     * @param profileDto The profile data to update
+     * @return ResponseEntity containing the updated profile information
+     * @throws Exception if profile update fails
+     */
+    @PutMapping("/update") 
     public ResponseEntity<ProfileDto> updateProfile(@RequestBody ProfileDto profileDto) throws Exception{
         return new ResponseEntity<>(profileService.updateProfile(profileDto),HttpStatus.OK);
     }

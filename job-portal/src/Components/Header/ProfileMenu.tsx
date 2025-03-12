@@ -5,14 +5,42 @@ import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 import { removeUser } from "../../Slices/UserSlice"
 
+/**
+ * ProfileMenu Component
+ * 
+ * This component renders a dropdown menu for user profile actions and settings.
+ * It displays the user's name and avatar, and provides access to various user-related features.
+ * 
+ * Features:
+ * - Displays user's name and profile picture
+ * - Dropdown menu with the following options:
+ *   - Profile page link
+ *   - Resume access
+ *   - Messages
+ *   - Dark mode toggle
+ *   - Logout functionality
+ * 
+ * State Management:
+ * - Uses Redux for user and profile data
+ * - Local state for menu open/close
+ * 
+ * Props: None
+ * 
+ * @returns {JSX.Element} A dropdown menu component with user profile options
+ */
 export const ProfileMenu = () => {
     const [opened, setOpened] = useState(false)
     const user = useSelector((state:any)=>state.user)
     const profile = useSelector((state:any)=> state.profile)
     const dispatch = useDispatch()
+
+    /**
+     * Handles user logout by dispatching removeUser action
+     */
     const handleLogout = () => {
         dispatch(removeUser())
     }
+
     return (
         <div className="">
             <Menu opened={opened} onChange={setOpened} shadow="md" width={200}>
@@ -20,9 +48,8 @@ export const ProfileMenu = () => {
                     <div className="flex cursor-pointer items-center gap-2 text-xl">
                         {/* Name of the user */}
                         <div className="">{user.name}</div>
-                        {/* Avatar icon imported from mantine for the page */}
+                        {/* Avatar displays user profile picture if available, falls back to default avatar */}
                         <Avatar src={profile.picture?`data:image/jpeg;base64,${profile.picture}`:"/avatar.png" } alt="it's  me" />
-
                     </div>
                 </Menu.Target>
 

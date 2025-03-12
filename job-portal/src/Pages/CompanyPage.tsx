@@ -1,3 +1,29 @@
+/**
+ * Company Profile Page Component
+ * 
+ * Renders a company's profile page showing company details and similar companies.
+ * Provides navigation back to job search and displays company information in a two-column layout.
+ * 
+ * Features:
+ * - Back navigation button to return to job search
+ * - Main company profile information display
+ * - Similar/related companies sidebar
+ * - Consistent styling with dark theme
+ * - Full viewport height minimum
+ * 
+ * Layout Structure:
+ * - Back button navigation
+ * - Divider for visual separation
+ * - Two-column flex layout:
+ *   - Left: Main company profile
+ *   - Right: Similar companies suggestions
+ * 
+ * @component
+ * @example
+ * // In router configuration
+ * <Route path="/company/:name" element={<CompanyPage />} />
+ */
+
 import { Button, Divider } from "@mantine/core"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { NavLink } from "react-router-dom"

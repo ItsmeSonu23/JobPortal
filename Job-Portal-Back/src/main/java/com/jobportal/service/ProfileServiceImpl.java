@@ -13,6 +13,10 @@ import com.jobportal.exception.JobPortalException;
 import com.jobportal.repo.ProfileRepo;
 import com.jobportal.utility.Utilities;
 
+/**
+ * Implementation of the ProfileService interface that provides profile management functionality.
+ * Handles creating, retrieving and updating user profiles.
+ */
 @Service("profileService")
 public class ProfileServiceImpl implements ProfileService {
     @Autowired
@@ -21,6 +25,14 @@ public class ProfileServiceImpl implements ProfileService {
     @Autowired
     private ModelMapper modelMapper;
 
+    /**
+     * Creates a new profile for a user with the given email.
+     * Initializes empty lists for skills, experiences and certifications.
+     *
+     * @param email The email address of the user
+     * @return Long ID of the created profile
+     * @throws JobPortalException if profile creation fails
+     */
     @Override
     public Long createProfile(String email) throws JobPortalException {
         Profile profile = new Profile();
@@ -33,8 +45,15 @@ public class ProfileServiceImpl implements ProfileService {
         return profile.getId();
     }
 
+    /**
+     * Retrieves a profile by its ID.
+     * Fetches the profile from the repository and maps it to a DTO.
+     *
+     * @param id The ID of the profile to retrieve
+     * @return ProfileDto containing the profile information
+     * @throws JobPortalException if profile not found
+     */
     @Override
-
     public ProfileDto getProfile(Long id) throws JobPortalException {
         // Fetch the profile entity from the repository
         Profile profile = profileRepo.findById(id).orElseThrow(() -> new JobPortalException("PROFILE_NOT_FOUND"));
@@ -42,6 +61,14 @@ public class ProfileServiceImpl implements ProfileService {
         return modelMapper.map(profile, ProfileDto.class);
     }
 
+    /**
+     * Updates an existing profile with new information.
+     * Handles profile picture updates by decoding Base64 image data.
+     *
+     * @param profileDto The profile data to update
+     * @return ProfileDto containing the updated profile information
+     * @throws JobPortalException if profile not found or update fails
+     */
     @Override
     public ProfileDto updateProfile(ProfileDto profileDto) throws JobPortalException {
        Profile existingProfile =  profileRepo.findById(profileDto.getId()).orElseThrow(() -> new JobPortalException("PROFILE_NOT_FOUND"));

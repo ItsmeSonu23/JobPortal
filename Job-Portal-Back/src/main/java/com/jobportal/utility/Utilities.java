@@ -13,16 +13,34 @@ import org.springframework.stereotype.Component;
 
 import com.jobportal.entity.Sequence;
 import com.jobportal.exception.JobPortalException;
+
+/**
+ * Utility class providing helper methods for sequence generation and OTP creation.
+ */
 @Component
 public class Utilities {
 
     private static MongoOperations mongoOperations;
 
+    /**
+     * Sets the MongoDB operations instance.
+     * Required for sequence generation functionality.
+     *
+     * @param mongoOperations The MongoOperations instance to be used
+     */
     @Autowired
     public void setMongoOperation(MongoOperations mongoOperations){
         Utilities.mongoOperations = mongoOperations;
     }
     
+    /**
+     * Generates the next sequence number for a given key.
+     * Uses MongoDB's findAndModify operation to atomically increment and return the sequence.
+     *
+     * @param key The identifier for the sequence to be incremented
+     * @return The next value in the sequence
+     * @throws JobPortalException if unable to generate or retrieve the sequence
+     */
     public static Long getNextSequence(String key) throws JobPortalException{
         Query query = new Query(Criteria.where("_id").is(key));
         Update update = new Update();
@@ -34,6 +52,12 @@ public class Utilities {
         return seq.getSeq();
     }
 
+    /**
+     * Generates a random 6-digit OTP (One Time Password).
+     * Uses SecureRandom for cryptographically strong random number generation.
+     *
+     * @return A string containing the 6-digit OTP
+     */
     public static String generateOTP(){
         StringBuilder otp = new StringBuilder();
         SecureRandom random = new SecureRandom();

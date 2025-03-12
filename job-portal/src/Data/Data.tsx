@@ -478,10 +478,10 @@ export const content = '<h4>About the Job</h4><p>Write the description here...</
 
 
 export const card = [
-    { name: "Location", icon: IconMapPin, value: "New York" },
-    { name: "Expirience", icon: IconBriefcase, value: "Expert" },
-    { name: "Salary", icon: IconPremiumRights, value: "48 LPA" },
-    { name: "Job Type", icon: IconRecharging, value: "Full Time" }
+    { name: "Location", icon: IconMapPin, value: "New York",id:"location" },
+    { name: "Expirience", icon: IconBriefcase, value: "Expert",id:"expirience" },
+    { name: "Salary", icon: IconPremiumRights, value: "48 LPA", id:"packageOffered"},
+    { name: "Job Type", icon: IconRecharging, value: "Full Time", id:"jobType" }
 ]
 
 export const skills = ["React", "Node Js", "Spring Boot", "Java", "Python", "MongoDB", "Express", "Django", "PostgreSQL"]
@@ -649,3 +649,4 @@ export const profileFeild = [
     { label: "Company", placeholder: "Enter company Name", options: ["Google", "Microsoft", "Meta", "Netflix", "Adobe", "Facebook", "Amazon", "Apple", "Spotify"],  leftSection: IconBriefcase },
     { label: "Location", placeholder: "Enter your Location", options: ["Delhi", "New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Torento"], leftSection : IconMapPin },
 ]
+

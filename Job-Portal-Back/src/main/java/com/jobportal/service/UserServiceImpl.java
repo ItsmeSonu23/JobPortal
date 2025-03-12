@@ -25,84 +25,110 @@ import com.jobportal.utility.Utilities;
 
 import jakarta.mail.internet.MimeMessage;
 
+/**
+ * Implementation of the UserService interface that provides user management functionality.
+ * Handles user registration, authentication, password management and OTP operations.
+ */
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
     @Autowired
     private ProfileService profileService;
 
     @Autowired
-    private UserRepo userRepo; // Injecting the UserRepo to interact with the database.
+    private UserRepo userRepo;
 
     @Autowired
-    private ModelMapper modelMapper; // Used to convert between DTOs and entities.
+    private ModelMapper modelMapper;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // For encoding and decoding passwords.
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private OtpRepo otpRepo;
 
     @Autowired
-    private JavaMailSender mailSender; // For sending emails (used in OTP generation).
+    private JavaMailSender mailSender;
 
+    /**
+     * Registers a new user in the system.
+     * Creates a profile, encodes the password, and saves the user details.
+     *
+     * @param userDto The user details to register
+     * @return UserDto containing the registered user's information
+     * @throws JobPortalException if user already exists
+     */
     @Override
     public UserDto registerUser(UserDto userDto) throws JobPortalException {
-        // Check if user already exists based on the provided email.
         Optional<User> optional = userRepo.findByEmail(userDto.getEmail());
         if (optional.isPresent()) {
-            throw new JobPortalException("User Already Exist"); // Throw an exception if user is found.
+            throw new JobPortalException("User Already Exist");
         }
         userDto.setProfileId(profileService.createProfile(userDto.getEmail()));
-        // Set ID and encode the password before saving.
-        userDto.setId(Utilities.getNextSequence("users")); // Get the next sequence ID for the user.
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword())); // Encode the password for security.
+        userDto.setId(Utilities.getNextSequence("users"));
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        // Convert UserDto to User entity and save it to the repository.
         User user = modelMapper.map(userDto, User.class);
-        user = userRepo.save(user); // Save the user entity to the database.
+        user = userRepo.save(user);
 
-        // Convert the saved User entity back to UserDto and return it.
         return modelMapper.map(user, UserDto.class);
     }
 
+    /**
+     * Authenticates a user and logs them into the system.
+     * Verifies the provided credentials against stored user data.
+     *
+     * @param loginDto The login credentials
+     * @return UserDto containing the logged in user's information
+     * @throws JobPortalException if credentials are invalid or user not found
+     */
     @Override
     public UserDto loginUser(LoginDto loginDto) throws JobPortalException {
-        // Retrieve the user from the database based on email, or throw an exception if
-        // not found.
         User user = userRepo.findByEmail(loginDto.getEmail())
                 .orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
 
-        // Verify the entered password matches the stored one.
         if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
-            throw new JobPortalException("INVALID_CREDENTIALS"); // Throw an exception for invalid credentials.
+            throw new JobPortalException("INVALID_CREDENTIALS");
         }
 
-        // Convert the User entity to UserDto and return it.
         return modelMapper.map(user, UserDto.class);
     }
 
+    /**
+     * Generates and sends an OTP to the specified email address.
+     * Creates an OTP record and sends it via email to the user.
+     *
+     * @param email The email address to send OTP to
+     * @return Boolean indicating if OTP was sent successfully
+     * @throws Exception if email is invalid or sending fails
+     */
     @Override
     public Boolean sendOtp(String email) throws Exception {
-        // Retrieve the user based on email, or throw an exception if not found.
         User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
 
-        // Create and configure the email message (for OTP sending).
         MimeMessage mm = mailSender.createMimeMessage();
-        MimeMessageHelper msg = new MimeMessageHelper(mm, true); // Enable multipart (for HTML content).
-        msg.setTo(email); // Set the recipient email.
-        msg.setSubject("Your OTP code from Clover"); // Set the email subject.
+        MimeMessageHelper msg = new MimeMessageHelper(mm, true);
+        msg.setTo(email);
+        msg.setSubject("Your OTP code from Clover");
 
-        // Generate the OTP (using a utility method).
         String genOtp = Utilities.generateOTP();
 
         Otp otp = new Otp(email, genOtp, LocalDateTime.now());
         otpRepo.save(otp);
         msg.setText(Data.getMessageBody(user.getName(), genOtp), true);
         mailSender.send(mm);
-        return true; // Placeholder, modify as needed to actually send the OTP.
+        return true;
     }
 
+    /**
+     * Verifies the OTP entered by the user.
+     * Checks if the provided OTP matches the stored OTP for the email.
+     *
+     * @param email The email address associated with the OTP
+     * @param otp The OTP code to verify
+     * @return Boolean indicating if OTP verification was successful
+     * @throws Exception if OTP is invalid or expired
+     */
     @Override
     public Boolean verifyOtp(String email, String otp) throws Exception {
         Otp otpentity = otpRepo.findById(email).orElseThrow(() -> new JobPortalException("OTP_NOT_FOUND"));
@@ -111,15 +137,26 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /**
+     * Changes the user's password after successful OTP verification.
+     * Updates the stored password with a new encoded password.
+     *
+     * @param loginDto Contains the email and new password
+     * @return ResponseDto containing success message
+     * @throws JobPortalException if user not found
+     */
     @Override
     public ResponseDto changePassword(LoginDto loginDto) throws JobPortalException {
-
         User user = userRepo.findByEmail(loginDto.getEmail()).orElseThrow(() -> new JobPortalException("OTP_NOT_FOUND"));
         user.setPassword(passwordEncoder.encode(loginDto.getPassword()));
         userRepo.save(user);
         return new ResponseDto("Password changed succesfully!");
     }
 
+    /**
+     * Scheduled task to remove expired OTPs from the database.
+     * Runs every minute and removes OTPs older than 5 minutes.
+     */
     @Scheduled(fixedRate = 60000)
     public void removeExpiredOtps(){
         LocalDateTime expiry = LocalDateTime.now().minusMinutes(5);

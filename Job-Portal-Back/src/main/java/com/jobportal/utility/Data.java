@@ -1,7 +1,18 @@
 package com.jobportal.utility;
 
+/**
+ * Utility class containing helper methods for generating email content.
+ */
 public class Data {
 
+    /**
+     * Generates an HTML email body for OTP verification messages.
+     * Creates a responsive, styled email template with the user's name and OTP code.
+     * 
+     * @param user The name/email of the user receiving the OTP
+     * @param OTP The one-time password code to be included in the email
+     * @return A formatted HTML string containing the complete email body
+     */
     public static String getMessageBody(String user,String OTP){
         return "<!DOCTYPE html>\n" +
         "<html lang=\"en\">\n" +

@@ -9,6 +9,7 @@ import { Certificate } from "./Certificate"
 import { useHover } from "@mantine/hooks"
 import { IconEdit } from "@tabler/icons-react"
 import { successNotification } from "../../Services/NotificationService"
+import { getBase64 } from "../../Services/Utilities"
 
 export const Profile = (props: any) => {
     const dispatch = useDispatch()
@@ -22,14 +23,7 @@ export const Profile = (props: any) => {
         dispatch(changeProfile(updatedProfile))
         successNotification("Success","Profile picture updated successfully")
     }
-    const getBase64 =(file:any)=>{
-        return new Promise((res,rej)=>{
-            const reader = new FileReader()
-            reader.readAsDataURL(file)
-            reader.onload=()=>res(reader.result)
-            reader.onerror = error =>rej(error)
-        })
-    }
+   
     return (
         <div className="w-4/5 mx-auto">
 
