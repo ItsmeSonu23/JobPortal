@@ -5,9 +5,60 @@ import { timeAgo } from "../../Services/Utilities"
 import { useDispatch, useSelector } from "react-redux"
 import { changeProfile } from "../../Slices/ProfileSlice"
 
+/**
+ * Card Component
+ * 
+ * A job card component that displays job details and allows interaction with saved jobs.
+ * Used in job history views to show applied, interviewing, and offered jobs.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.id - Unique identifier for the job
+ * @param {string} props.jobTitle - Title of the job position
+ * @param {string} props.company - Name of the hiring company
+ * @param {Array} props.applicants - List of applicants for this job
+ * @param {string} props.expirience - Required experience level
+ * @param {string} props.jobType - Type of job (Full-time, Part-time, etc)
+ * @param {string} props.location - Job location
+ * @param {string} props.about - Brief description of the job
+ * @param {number} props.packageOffered - Salary package in LPA
+ * @param {string} props.postTime - Timestamp when job was posted
+ * @param {boolean} props.applied - Whether user has applied to this job
+ * @param {boolean} props.interviewing - Whether user is interviewing for this job
+ * @param {boolean} props.offered - Whether user has been offered this job
+ * 
+ * Features:
+ * - Interactive save/unsave job functionality
+ * - Company logo display
+ * - Job details including title, company, applicant count
+ * - Key job attributes (experience, type, location)
+ * - Truncated job description
+ * - Salary and posting time information
+ * - Interview schedule display (when applicable)
+ * - Offer acceptance/rejection options (when applicable)
+ * - Link to detailed job view
+ * 
+ * Styling:
+ * - Dark theme with Mine Shaft color palette
+ * - Electric Violet accents
+ * - Hover effects with purple glow
+ * - Consistent spacing and typography
+ * - Responsive layout with flex containers
+ * 
+ * State Management:
+ * - Uses Redux for profile state
+ * - Handles job saving/unsaving with profile updates
+ * 
+ * @returns {JSX.Element} A job card component
+ */
 export const Card = (props: any) => {
     const dispatch = useDispatch()
     const profile = useSelector((state: any) => state.profile)
+
+    /**
+     * Handles saving/unsaving a job to user's profile
+     * Updates the savedJobs array in profile state
+     */
     const handleSaveJob = () => {
         // Default to an empty array if savedJobs is undefined or null
         let savedJobs: any = Array.isArray(profile.savedJobs) ? [...profile.savedJobs] : [];
@@ -22,6 +73,7 @@ export const Card = (props: any) => {
         let updatedProfile = { ...profile, savedJobs: savedJobs };
         dispatch(changeProfile(updatedProfile));
     }
+
     return (
         <div className="bg-[var(--color-mine-shaft-900)] p-5 w-80 justify-between flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_darkorchid] !shadow-mine-shaft-600">
             <div className="flex justify-between">
@@ -72,7 +124,6 @@ export const Card = (props: any) => {
             <NavLink to={`/jobs/${props.id}`}>
                 <Button fullWidth color="darkorchid" variant="outline">View Job</Button>
             </NavLink>
-
         </div>
     )
 }

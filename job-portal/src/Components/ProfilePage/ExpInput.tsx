@@ -8,6 +8,74 @@ import { isNotEmpty, useForm } from "@mantine/form"
 import { successNotification } from "../../Services/NotificationService"
 import { changeProfile } from "../../Slices/ProfileSlice"
 
+/**
+ * ExpInput Component
+ * 
+ * A form component for adding and editing work experience entries in a user's profile.
+ * Provides form validation, date selection, and Redux integration.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Add new or edit existing experience entries
+ * - Form validation for all required fields
+ * - Date range selection with validation
+ * - "Currently working" toggle
+ * - Redux state management
+ * - Success notifications
+ * 
+ * Visual Elements:
+ * - Title heading ("Add Experience" or "Edit Experience")
+ * - Job title select input
+ * - Company select input  
+ * - Location select input
+ * - Description textarea
+ * - Start/end date pickers
+ * - Currently working checkbox
+ * - Save/Discard buttons
+ * 
+ * Props:
+ * @param {Object} props - Component properties
+ * @param {boolean} props.add - Whether adding new or editing existing
+ * @param {string} props.title - Job title (for edit mode)
+ * @param {string} props.company - Company name (for edit mode)
+ * @param {string} props.location - Job location (for edit mode)
+ * @param {string} props.description - Job description (for edit mode)
+ * @param {Date} props.startDate - Start date (for edit mode)
+ * @param {Date} props.endDate - End date (for edit mode)
+ * @param {boolean} props.working - Currently working status (for edit mode)
+ * @param {number} props.index - Index in experiences array (for edit mode)
+ * @param {Function} props.setEdit - Function to toggle edit mode
+ * 
+ * Form Fields:
+ * - title: Job title (required)
+ * - company: Company name (required)
+ * - location: Job location (required)
+ * - description: Job description (required)
+ * - startDate: Employment start date
+ * - endDate: Employment end date
+ * - working: Currently working here flag
+ * 
+ * State Management:
+ * - Uses Mantine form hook for form state
+ * - Redux for profile state
+ * - Validates input on change
+ * - Initializes form with existing data in edit mode
+ * 
+ * Date Validation:
+ * - End date must be after start date
+ * - Start date must be before current date
+ * - End date disabled when "currently working"
+ * 
+ * Layout:
+ * - Flex column container with gaps
+ * - Two-column layout for title/company
+ * - Full-width location and description
+ * - Two-column date pickers
+ * - Button group at bottom
+ * 
+ * @returns {JSX.Element} An experience input form
+ */
 export const ExpInput = (props: any) => {
     const dispatch = useDispatch()
     const profile = useSelector((state: any) => state.profile)

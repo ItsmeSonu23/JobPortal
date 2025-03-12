@@ -4,6 +4,55 @@ import { MultiInput } from '../FindJobs/MultiInput'
 import { useState } from "react";
 import { IconUserCircle } from "@tabler/icons-react";
 
+/**
+ * SearchBar Component for Finding Talent
+ * 
+ * A search filter bar component that provides multiple filter options for finding talent/candidates.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Talent name search input with icon
+ * - Multiple dropdown filters using MultiInput component
+ * - Salary range slider with real-time updates
+ * - Responsive layout with flex containers
+ * 
+ * Layout:
+ * - Flex container with horizontal padding of 24px (px-6)
+ * - Vertical padding of 32px (py-8)
+ * - Centered items alignment
+ * - Each filter section takes 20% width (w-1/5)
+ * - Vertical dividers between sections
+ * 
+ * Components:
+ * 1. Name Search Section:
+ *    - IconUserCircle in electric violet
+ *    - Unstyled input with white placeholder
+ *    - Dark background for icon container
+ * 
+ * 2. Filter Dropdowns:
+ *    - Dynamic filters from searchFeilds data
+ *    - Each uses MultiInput component
+ *    - Separated by vertical dividers
+ * 
+ * 3. Salary Range:
+ *    - Min-max display in LPA (Lakhs Per Annum)
+ *    - Custom styled RangeSlider
+ *    - Animated label transitions
+ * 
+ * State Management:
+ * - Maintains salary range state as tuple [min, max]
+ * - Initial range set to [0, 100] LPA
+ * - Updates range values through slider interaction
+ * 
+ * Styling:
+ * - Mine Shaft color palette for text
+ * - Electric violet accents
+ * - Custom slider label positioning
+ * - Consistent spacing and typography
+ * 
+ * @returns {JSX.Element} A search filter bar for finding talent
+ */
 export const SearchBar = () => {
     const [value, setValue] = useState<[number, number]>([0, 100]);
     return (

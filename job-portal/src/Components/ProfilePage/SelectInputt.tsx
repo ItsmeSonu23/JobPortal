@@ -1,6 +1,44 @@
 import { useEffect, useState } from 'react';
 import { Combobox, InputBase, ScrollArea, useCombobox } from '@mantine/core';
 
+/**
+ * SelectInputt Component
+ * 
+ * A custom select input component that combines combobox functionality with form integration.
+ * Supports searching, creating new options, and form field binding.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Searchable dropdown with autocomplete
+ * - Create new options on-the-fly
+ * - Form integration with Mantine forms
+ * - Custom left section icon support
+ * - Scrollable dropdown with height limit
+ * 
+ * Props:
+ * @param {Object} props - Component properties
+ * @param {Object} props.form - Mantine form instance
+ * @param {string} props.name - Form field name
+ * @param {string[]} props.options - Array of available options
+ * @param {Component} props.leftSection - Icon component for left section
+ * @param {string} props.label - Input label text
+ * @param {string} props.placeholder - Input placeholder text
+ * 
+ * State:
+ * @property {string[]} data - Available options list
+ * @property {string|null} value - Currently selected value
+ * @property {string} search - Current search input value
+ * 
+ * Behaviors:
+ * - Initializes with form field value
+ * - Updates form on selection/creation
+ * - Filters options based on search input
+ * - Allows creating new options if no exact match
+ * - Maintains scroll position in dropdown
+ * 
+ * @returns {JSX.Element} A custom select input component
+ */
 export const SelectInputt = (props: any) => {
 
     useEffect(() => {

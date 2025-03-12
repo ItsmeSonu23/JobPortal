@@ -11,11 +11,64 @@ import { IconEdit } from "@tabler/icons-react"
 import { successNotification } from "../../Services/NotificationService"
 import { getBase64 } from "../../Services/Utilities"
 
-export const Profile = (props: any) => {
+/**
+ * Profile Component
+ * 
+ * Main profile page component that displays and manages a user's complete profile information.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Profile banner image
+ * - Editable profile picture with hover effects
+ * - Sections for different profile information
+ * - Redux integration for profile state management
+ * 
+ * Visual Elements:
+ * - Banner image at top
+ * - Large circular profile picture overlapping banner
+ * - Edit overlay on profile picture hover
+ * - Multiple content sections with dividers
+ * 
+ * Layout:
+ * - Centered container (80% width)
+ * - Banner with overlapping profile picture
+ * - Vertical stack of profile sections
+ * - Consistent section spacing with dividers
+ * 
+ * Props:
+ * @param {Object} props - Component properties (currently unused)
+ * 
+ * State Management:
+ * - Redux for profile data
+ * - Hover state for profile picture
+ * - File input handling for picture updates
+ * 
+ * Child Components:
+ * - Info: Basic profile information
+ * - About: User biography/description
+ * - Skills: User's skill set
+ * - Experience: Work history
+ * - Certificate: Professional certifications
+ * 
+ * Profile Picture Features:
+ * - Hover overlay with edit icon
+ * - File input for uploading new picture
+ * - Base64 conversion for storage
+ * - Success notification on update
+ */
+export const Profile = () => {
     const dispatch = useDispatch()
     const profile = useSelector((state: any) => state.profile)
 
     const { hovered, ref } = useHover();
+
+    /**
+     * Handles profile picture file upload
+     * Converts image to base64, updates Redux store, and shows success notification
+     * 
+     * @param {File} image - The uploaded image file
+     */
     const handleFileChange = async(image:any)=>{
         let picture:any = await getBase64(image)
         console.log(picture); 
@@ -26,7 +79,6 @@ export const Profile = (props: any) => {
    
     return (
         <div className="w-4/5 mx-auto">
-
             <div className="relative">
                 <img className="rounded-t-2xl" src="/Profile/Banner.png" alt="" />
                 <div ref={ref} className="absolute -bottom-1/3 left-3 flex items-center justify-center">

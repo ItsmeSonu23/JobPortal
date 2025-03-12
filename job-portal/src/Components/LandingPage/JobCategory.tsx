@@ -1,6 +1,57 @@
 import { Carousel } from '@mantine/carousel'
 import { IconArrowRight, IconArrowLeft } from '@tabler/icons-react';
 import { jobCategory } from '../../Data/Data';
+
+/**
+ * JobCategory Component
+ * 
+ * A carousel component that displays different job categories with their details
+ * and allows users to browse through them.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Infinite loop carousel of job categories
+ * - Custom navigation arrows that appear on hover
+ * - Interactive category cards with hover effects
+ * - Visual representation of each category with icons
+ * - Job count display for each category
+ * 
+ * Visual Elements:
+ * - Section heading with accent colored "Job" text
+ * - Descriptive subheading with centered alignment
+ * - Category cards with:
+ *   - Icon in circular purple background
+ *   - Category name in large font
+ *   - Category description
+ *   - Number of available jobs
+ * 
+ * Styling:
+ * - Dark theme with Mine Shaft color palette
+ * - Electric Violet accents for emphasis
+ * - Hover effects with purple glow on cards
+ * - Custom carousel navigation buttons
+ * - Consistent spacing and typography
+ * 
+ * Layout:
+ * - Top margin of 80px (mt-20)
+ * - Bottom padding of 20px (pb-5)
+ * - Centered content alignment
+ * - 20% slide width with medium gaps
+ * 
+ * Carousel Features:
+ * - Infinite loop scrolling
+ * - Navigation arrows visible on hover
+ * - Smooth transitions
+ * - Custom arrow icons
+ * 
+ * Data Flow:
+ * - Imports jobCategory data from Data file
+ * - Maps categories to carousel slides
+ * - Dynamically generates image paths
+ * 
+ * @returns {JSX.Element} A carousel section displaying job categories
+ */
 export const JobCategory = () => {
     return (
         <div className="mt-20 pb-5">

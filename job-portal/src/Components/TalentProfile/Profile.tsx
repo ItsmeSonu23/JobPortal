@@ -3,6 +3,58 @@ import { IconBriefcase, IconMapPin } from "@tabler/icons-react"
 import { ExpCard } from "./ExpCard"
 import { Certification } from "./Certification"
 
+/**
+ * Profile Component
+ * 
+ * Displays a comprehensive talent profile with personal info, skills, experience and certifications.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Profile banner and avatar display
+ * - Personal information section (name, role, location)
+ * - About section with bio
+ * - Skills showcase with tags
+ * - Work experience timeline
+ * - Professional certifications list
+ * - Direct messaging button
+ * 
+ * Visual Elements:
+ * - Banner image with overlapping avatar
+ * - Two-column layout for header info
+ * - Dividers between sections
+ * - Skill tags with consistent styling
+ * - Experience and certification cards
+ * 
+ * Layout:
+ * - Fixed width (2/3 of container)
+ * - Consistent padding and spacing
+ * - Responsive text sizing
+ * - Section-based organization
+ * 
+ * Props:
+ * @param {Object} props - Component properties
+ * @param {string} props.name - User's full name
+ * @param {string} props.role - Current job role
+ * @param {string} props.company - Current company
+ * @param {string} props.location - User's location
+ * @param {string} props.about - User's bio/description
+ * @param {string[]} props.skills - Array of skill tags
+ * @param {Object[]} props.expirience - Array of work experience entries
+ * @param {Object[]} props.certifications - Array of certification entries
+ * 
+ * Styling:
+ * - Custom color variables for consistent theming
+ * - Rounded corners for visual elements
+ * - Muted text colors for secondary information
+ * - Consistent font sizing hierarchy
+ * 
+ * Sub-components:
+ * - ExpCard: Displays individual work experience
+ * - Certification: Shows certification details
+ * 
+ * @returns {JSX.Element} A complete talent profile page
+ */
 export const Profile = (props: any) => {
     return <div className="w-2/3">
         <div className="relative">
@@ -28,9 +80,6 @@ export const Profile = (props: any) => {
                 <div className="flex flex-wrap gap-2 ">
                     {
                         props.skills.map((skill: any, index: any) => <div key={index} className="bg-[var(--color-electric-violet-500)] rounded-3xl text-[var(--color-mine-shaft-200)] text-xs font-medium px-3 py-1">{skill}</div>)
-
-                       
-                        
                     }
                 </div>
             </div>
@@ -51,7 +100,6 @@ export const Profile = (props: any) => {
                         props.certifications.map((cert: any, index: any) => <Certification key={index} {...cert} />)
                     }
                 </div>
-               
             </div>
         </div>
     </div>

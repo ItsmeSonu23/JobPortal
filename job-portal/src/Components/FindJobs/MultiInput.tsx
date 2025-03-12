@@ -2,6 +2,49 @@ import { useEffect, useState } from 'react';
 import { Checkbox, Combobox, Group, Input, Pill, PillsInput, useCombobox } from '@mantine/core';
 import { IconSelector } from '@tabler/icons-react';
 
+/**
+ * MultiInput Component
+ * 
+ * A customizable multi-select input component with search, create, and remove functionality.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {string[]} props.options - Array of selectable options
+ * @param {string} props.title - Placeholder text when no items are selected
+ * @param {Component} props.icon - Icon component to display on the left side
+ * 
+ * Features:
+ * - Multi-select functionality with checkbox options
+ * - Search filtering of available options
+ * - Create new options on-the-fly
+ * - Remove selected items
+ * - Shows count of additional selected items beyond first
+ * - Custom styling with Mine Shaft color palette
+ * 
+ * State Management:
+ * - search: Tracks current search input
+ * - data: Available options list
+ * - value: Currently selected items
+ * 
+ * Key Functions:
+ * - handleValueSelect: Handles selection of existing items or creation of new ones
+ * - createNewItem: Adds new items to both data and selected values
+ * - toggleItemSelection: Toggles selection state of items
+ * - handleValueRemove: Removes items from selection
+ * 
+ * UI Components:
+ * - PillsInput: Main input container with custom styling
+ * - Combobox: Dropdown menu with search and options
+ * - Checkbox: Selection indicator for each option
+ * - Pill: Display selected items and count
+ * 
+ * Styling:
+ * - Uses Mine Shaft color variables for dark theme
+ * - Custom styling for placeholder text and icons
+ * - Purple accent colors for interactive elements
+ * 
+ * @returns {JSX.Element} A multi-select input component with dropdown
+ */
 export const MultiInput = (props:any) => {
     useEffect(()=>{
         setData(props.options)

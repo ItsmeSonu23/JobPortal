@@ -8,6 +8,72 @@ import { errorNotification, successNotification } from "../../Services/Notificat
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+/**
+ * PostJob Component
+ * 
+ * A form component for creating and publishing job postings with validation and draft capabilities.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Complete job posting form with validation
+ * - Draft saving functionality
+ * - Rich text editor for job description
+ * - Skills input with tag support
+ * - Form validation with error messages
+ * 
+ * Visual Elements:
+ * - "Post a Job" heading in large font
+ * - Two-column layout for form fields
+ * - Rich text editor with custom styling
+ * - Action buttons for publishing and drafting
+ * 
+ * Layout:
+ * - 80% width container (w-4/5)
+ * - Centered with auto margins (mx-auto)
+ * - Two-column grid for paired inputs
+ * - Vertical spacing between sections (gap-5)
+ * 
+ * Form Fields:
+ * - Job Title (SelectInput)
+ * - Company (SelectInput)
+ * - Experience (SelectInput)
+ * - Job Type (SelectInput)
+ * - Location (SelectInput)
+ * - Package/Salary (NumberInput)
+ * - Skills (TagsInput)
+ * - About Job (Textarea)
+ * - Job Description (TextEditor)
+ * 
+ * Validation:
+ * - Required field validation
+ * - Input-level validation on change
+ * - Form-level validation before submission
+ * 
+ * State Management:
+ * - Uses Mantine form hook for form state
+ * - Redux integration for user data
+ * - Controlled form inputs
+ * 
+ * Data Flow:
+ * - Form data collected through Mantine useForm
+ * - User ID from Redux store
+ * - API integration for job posting
+ * - Navigation after successful submission
+ * 
+ * Error Handling:
+ * - Form validation errors
+ * - API error notifications
+ * - Success notifications
+ * 
+ * Dependencies:
+ * - @mantine/core for UI components
+ * - @mantine/form for form handling
+ * - react-redux for state management
+ * - react-router-dom for navigation
+ * 
+ * @returns {JSX.Element} A form interface for creating job postings
+ */
 export const PostJob = () => {
    const user = useSelector((state:any)=>state.user)
    const select = feilds;

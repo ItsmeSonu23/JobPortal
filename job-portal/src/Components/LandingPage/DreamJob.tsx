@@ -1,6 +1,59 @@
 import { Avatar, TextInput } from "@mantine/core"
 import { CiSearch } from "react-icons/ci"
 
+/**
+ * DreamJob Component
+ * 
+ * The hero section component for the landing page that showcases job search functionality
+ * and engagement metrics.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Job search interface with title and type filters
+ * - Interactive search button
+ * - Engaging hero image with floating cards
+ * - User engagement metrics display
+ * - Company job posting preview
+ * 
+ * Visual Elements:
+ * - Large heading with accent colored words
+ * - Search input fields with dark theme styling
+ * - Circular search button with hover effect
+ * - Hero image with overlaid floating cards
+ * - Avatar group showing user engagement
+ * - Company card with job posting details
+ * 
+ * Layout:
+ * - Two-column layout (45% left, 55% right)
+ * - Horizontal padding of 80px (px-20)
+ * - Centered content alignment
+ * - Floating cards with absolute positioning
+ * 
+ * Styling:
+ * - Dark theme with Mine Shaft color palette
+ * - Electric Violet accents for emphasis
+ * - Backdrop blur effects on floating cards
+ * - Consistent spacing and typography
+ * - Interactive hover states
+ * 
+ * Search Interface:
+ * - Job Title input field
+ * - Job Type input field
+ * - Circular search button with icon
+ * 
+ * Engagement Display:
+ * - "10K+ got jobs" metric
+ * - Avatar group showing recent placements
+ * - Additional count indicator
+ * 
+ * Job Preview Card:
+ * - Company logo in dark container
+ * - Job title and location
+ * - Posting age and applicant count
+ * 
+ * @returns {JSX.Element} The hero section of the landing page
+ */
 export const DreamJob = () => {
     return (
         // landing page section 1 of the home page of the website

@@ -1,19 +1,76 @@
 import { TextInput, rem, PasswordInput, Button, LoadingOverlay } from "@mantine/core"
-import { IconAt, IconCheck, IconLock, IconX } from "@tabler/icons-react"
+import { IconAt,IconLock } from "@tabler/icons-react"
 import { useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { loginUser } from "../../Services/UserService"
 import { loginValidation } from "../../Services/FormValidation"
-import { notifications } from "@mantine/notifications"
 import { useDisclosure } from "@mantine/hooks"
 import { ResetPassword } from "./ResetPassword"
 import { useDispatch } from "react-redux"
 import { setUser } from "../../Slices/UserSlice"
 import { errorNotification, successNotification } from "../../Services/NotificationService"
+
+/**
+ * Initial form state with empty email and password
+ */
 const form = {
     email: "",
     password: "",
 }
+
+/**
+ * Login Component
+ * 
+ * Handles user authentication through a login form interface.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Email and password input fields with validation
+ * - Loading state during authentication
+ * - Success/Error notifications
+ * - Navigation after successful login
+ * - Password reset functionality
+ * - Links to signup for new users
+ * 
+ * Visual Elements:
+ * - Email input with @ icon
+ * - Password input with lock icon
+ * - Loading overlay during authentication
+ * - Login button with loading state
+ * - Links for signup and password reset
+ * 
+ * Layout:
+ * - Centered form layout
+ * - Consistent spacing between elements
+ * - Responsive width (50% of container)
+ * 
+ * State:
+ * @property {boolean} loading - Controls loading overlay
+ * @property {Object} data - Form input values
+ * @property {Object} formError - Form validation errors
+ * @property {boolean} opened - Controls password reset modal
+ * 
+ * Redux:
+ * - Dispatches user data on successful login
+ * 
+ * Form Validation:
+ * - Email format validation
+ * - Password requirements check
+ * - Real-time error clearing
+ * 
+ * API Integration:
+ * - Calls loginUser service
+ * - Handles success/failure responses
+ * - Shows appropriate notifications
+ * 
+ * Navigation:
+ * - Redirects to home page after login
+ * - Links to signup page
+ * - Opens password reset modal
+ * 
+ * @returns {JSX.Element} A login form interface
+ */
 export const Login = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
@@ -22,11 +79,19 @@ export const Login = () => {
     const [formError, setFormError] = useState<{ [key: string]: string }>(form)
     const [opened, { open, close }] = useDisclosure(false);
 
+    /**
+     * Handles input changes and clears corresponding error
+     * @param {React.ChangeEvent} event - Input change event
+     */
     const handleChange = (event: any) => {
         setFormError({ ...form, [event.target.name]: "" })
         setData({ ...data, [event.target.name]: event.target.value })
     }
 
+    /**
+     * Handles form submission and authentication
+     * Validates inputs, calls login API, and handles response
+     */
     const handleSubmit = () => {
       
         let valid = true, newFormError: { [key: string]: string } = {};

@@ -1,3 +1,56 @@
+/**
+ * Signup/Login Page Component
+ * 
+ * Renders a combined signup and login page with sliding animation between views.
+ * Features a centered logo, tagline, and navigation between authentication modes.
+ * 
+ * Features:
+ * - Sliding animation between signup and login views
+ * - Centered Clover logo and branding
+ * - Home navigation button
+ * - Full viewport height
+ * - Overflow handling
+ * - Dark theme styling
+ * 
+ * Layout Structure:
+ * - Main container with full viewport height
+ * - Home button in top left corner
+ * - Sliding container with three sections:
+ *   - Login component
+ *   - Centered logo/branding
+ *   - Signup component
+ * 
+ * Animation:
+ * - Smooth sliding transition between views
+ * - 1 second duration with ease-in-out
+ * - Rounded corners animation on center panel
+ * 
+ * State Management:
+ * - Uses location.pathname to determine view
+ * - Controls sliding animation based on path
+ * 
+ * Navigation:
+ * - Home button returns to landing page
+ * - URL-based view switching (/login vs /signup)
+ * 
+ * Styling:
+ * - Dark background using Mine Shaft colors
+ * - Electric violet accent for logo
+ * - Poppins font family
+ * - Responsive text sizing
+ * - Consistent spacing and alignment
+ * 
+ * Components:
+ * @component Login - Handles user login form
+ * @component Signup - Handles user registration form
+ * 
+ * @component
+ * @example
+ * // In router configuration
+ * <Route path="/signup" element={<SignupPage />} />
+ * <Route path="/login" element={<SignupPage />} />
+ */
+
 import { TbCloverFilled } from "react-icons/tb"
 import { Signup } from "../Components/SignupLogin/Signup"
 import { Login } from "../Components/SignupLogin/Login"

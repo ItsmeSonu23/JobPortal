@@ -3,6 +3,58 @@ import { TbCloverFilled } from "react-icons/tb"
 import { useLocation } from "react-router-dom"
 import { footerLinks } from "../../Data/Data"
 
+/**
+ * Footer Component
+ * 
+ * A responsive footer component that displays company information and navigation links.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Company branding section with logo and description
+ * - Social media links with hover effects
+ * - Multiple columns of footer links from footerLinks data
+ * - Conditional rendering based on current route
+ * - Smooth hover animations
+ * 
+ * Layout:
+ * - Top padding: 80px (pt-20)
+ * - Bottom padding: 40px (pb-10)
+ * - Flex container with gap and even spacing
+ * - Left section takes 25% width (w-1/4)
+ * 
+ * Sections:
+ * 1. Company Section:
+ *    - Logo with Clover icon
+ *    - Company name in Electric Violet
+ *    - Description text
+ *    - Social media icons with hover effects
+ * 
+ * 2. Link Columns:
+ *    - Dynamic rendering from footerLinks data
+ *    - Column title in Electric Violet
+ *    - Links with hover effects:
+ *      - Color change to Electric Violet
+ *      - Slight rightward translation
+ *      - Smooth transition
+ * 
+ * Styling:
+ * - Dark theme with Mine Shaft color palette
+ * - Electric Violet accents
+ * - Karla font family
+ * - Consistent text sizes and spacing
+ * - Interactive hover states
+ * 
+ * Conditional Rendering:
+ * - Hidden on signup and login routes
+ * - Visible on all other routes
+ * 
+ * State Management:
+ * - Uses useLocation hook to determine current route
+ * - Conditionally renders based on pathname
+ * 
+ * @returns {JSX.Element} A footer component or empty fragment based on route
+ */
 export const Footer = () => {
     const location = useLocation()
     return location.pathname != "/signup" &&  location.pathname != "/login"  ? <div className="pt-20 pb-10 bg-[var(--color-mine-shaft-950)] flex gap-5 justify-around font-['Karla']">

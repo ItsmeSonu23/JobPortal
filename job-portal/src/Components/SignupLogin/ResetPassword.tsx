@@ -6,6 +6,62 @@ import { signupValidation } from "../../Services/FormValidation"
 import { errorNotification, successNotification } from "../../Services/NotificationService"
 import { useInterval } from "@mantine/hooks"
 
+/**
+ * ResetPassword Component
+ * 
+ * Handles the password reset flow including email verification, OTP validation, and password change.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Multi-step password reset process
+ * - Email verification with OTP
+ * - OTP resend functionality with cooldown timer
+ * - New password validation
+ * - Success/Error notifications
+ * 
+ * Visual Elements:
+ * - Modal container
+ * - Email input with send OTP button
+ * - 6-digit OTP input
+ * - Password input with validation
+ * - Action buttons for each step
+ * 
+ * Props:
+ * @param {Object} props - Component properties
+ * @param {boolean} props.opened - Controls modal visibility
+ * @param {Function} props.close - Handler to close modal
+ * 
+ * State:
+ * @property {string} email - User's email address
+ * @property {boolean} otpSent - Tracks if OTP has been sent
+ * @property {boolean} otpSending - Loading state for OTP operations
+ * @property {boolean} verified - Tracks if OTP is verified
+ * @property {string} password - New password value
+ * @property {string} passError - Password validation error message
+ * @property {boolean} resendLoader - Controls resend button state
+ * @property {number} seconds - Countdown timer for OTP resend
+ * 
+ * API Integration:
+ * - sendOtp: Sends verification code to email
+ * - verifyOtp: Validates entered OTP
+ * - changePassword: Updates user password
+ * 
+ * Flow Steps:
+ * 1. Enter email and request OTP
+ * 2. Enter received OTP
+ * 3. Enter new password
+ * 4. Confirm password change
+ * 
+ * Features:
+ * - Real-time password validation
+ * - 60-second cooldown for OTP resend
+ * - Email change option
+ * - Loading states for operations
+ * - Error handling with notifications
+ * 
+ * @returns {JSX.Element} A modal interface for password reset
+ */
 export const ResetPassword = (props: any) => {
 
     const [email, setEmail] = useState("")
@@ -24,6 +80,10 @@ export const ResetPassword = (props: any) => {
         } else setSeconds((s) => s - 1)
     }, 1000)
 
+    /**
+     * Handles sending OTP to user's email
+     * Shows success/error notifications and updates UI state
+     */
     const handleSendOtp = () => {
         setOtpSending(true)
         sendOtp(email).then((res) => {
@@ -41,6 +101,10 @@ export const ResetPassword = (props: any) => {
         })
     }
 
+    /**
+     * Verifies entered OTP
+     * @param {string} otp - 6-digit verification code
+     */
     const handleVerifyOtp = (otp: string) => {
         console.log(otp);
         verifyOtp(email, otp)
@@ -54,11 +118,17 @@ export const ResetPassword = (props: any) => {
             })
     }
 
+    /**
+     * Handles OTP resend with cooldown check
+     */
     const resendOtp = () => {
         if(resendLoader)return;
         handleSendOtp();
     }
 
+    /**
+     * Resets form state for email change
+     */
     const changeEmail = () => {
         setOtpSent(false)
         setResendLoader(false)
@@ -67,6 +137,10 @@ export const ResetPassword = (props: any) => {
         interval.stop()
     }
 
+    /**
+     * Handles password reset submission
+     * Updates password and closes modal on success
+     */
     const handleResetPassword = () => {
         changePassword(email, password)
             .then((res) => {

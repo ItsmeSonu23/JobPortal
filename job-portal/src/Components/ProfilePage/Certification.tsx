@@ -5,9 +5,65 @@ import { useDispatch, useSelector } from "react-redux"
 import { changeProfile } from "../../Slices/ProfileSlice"
 import { successNotification } from "../../Services/NotificationService"
 
+/**
+ * Certification Component
+ * 
+ * A component that displays a single certification entry with delete functionality.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Displays certification details (title, issuer, dates, ID)
+ * - Shows issuer logo/icon
+ * - Delete functionality when in edit mode
+ * - Redux integration for state management
+ * 
+ * Visual Elements:
+ * - Issuer icon/logo in dark background
+ * - Title in semibold font
+ * - Issuer name in smaller text
+ * - Issue date and certificate ID
+ * - Delete button (in edit mode)
+ * 
+ * Layout:
+ * - Flex container with space between
+ * - Left side: Icon and certification details
+ * - Right side: Dates, ID and delete button
+ * - Responsive alignment and spacing
+ * 
+ * Props:
+ * @param {Object} props - Component properties
+ * @param {string} props.title - Certification title
+ * @param {string} props.issuer - Certification issuer
+ * @param {string} props.issueDate - Date certification was issued
+ * @param {string} props.certificateId - Unique certificate identifier
+ * @param {number} props.index - Index in certifications array
+ * @param {boolean} props.edit - Whether edit mode is active
+ * 
+ * State Management:
+ * - Uses Redux for profile state
+ * - Dispatches profile updates on deletion
+ * 
+ * Actions:
+ * - Delete certification from profile
+ * - Show success notification after deletion
+ * 
+ * Styling:
+ * - Uses Tailwind classes for layout
+ * - Custom color variables for theming
+ * - Responsive text sizes
+ * - Subtle animations on interactions
+ * 
+ * @returns {JSX.Element} A certification entry display
+ */
 export const Certification = (props: any) => {
     const dispatch = useDispatch()
     const profile = useSelector((state: any) => state.profile)
+
+    /**
+     * Handles deletion of the certification
+     * Updates Redux store and shows success notification
+     */
     const handleDelete = () => {
         let certi = [...profile.certifications]
         certi.splice(props.index, 1)
@@ -15,6 +71,7 @@ export const Certification = (props: any) => {
         dispatch(changeProfile(updatedProfile))
         successNotification("Success", "Certificate deleted successfully")
     }
+
     return <div className="flex justify-between">
         <div className="flex gap-2 items-center">
             <div className="p-2 bg-[var(--color-mine-shaft-800)] rounded-md">

@@ -3,6 +3,51 @@ import { MultiInput } from "./MultiInput"
 import { useState } from "react";
 import { dropdownData } from "../../Data/Data";
 
+/**
+ * SearchBar Component
+ * 
+ * A search filter bar component that provides multiple filter options for job listings.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Multiple dropdown filters using MultiInput component
+ * - Salary range slider with real-time updates
+ * - Responsive layout with equal width columns
+ * - Visual dividers between filter sections
+ * 
+ * Layout:
+ * - Flex container with horizontal padding of 24px (px-6)
+ * - Vertical padding of 32px (py-8)
+ * - Each filter section takes 20% width (w-1/5)
+ * - Vertical dividers between dropdown sections
+ * 
+ * State Management:
+ * - Maintains salary range state as tuple [min, max]
+ * - Initial range set to [0, 100] LPA
+ * - Updates range values through slider interaction
+ * 
+ * Filter Sections:
+ * - Dynamic dropdown filters from dropdownData array
+ * - Each dropdown uses MultiInput component
+ * - Salary range filter with:
+ *   - Min-max display in LPA (Lakhs Per Annum)
+ *   - Custom styled RangeSlider
+ *   - Animated label transitions
+ * 
+ * Styling:
+ * - Custom slider label positioning
+ * - Purple accent color for slider
+ * - Consistent typography sizes
+ * - Clean divider styling
+ * 
+ * Dependencies:
+ * - Mantine UI components (Divider, RangeSlider)
+ * - MultiInput component for dropdowns
+ * - dropdownData for filter options
+ * 
+ * @returns {JSX.Element} A search filter bar with multiple filter options
+ */
 export const SearchBar = () => {
     const [value, setValue] = useState<[number, number]>([0, 100]);
     return (

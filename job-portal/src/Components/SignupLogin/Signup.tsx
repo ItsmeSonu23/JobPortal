@@ -1,13 +1,68 @@
 import { Anchor, Button, Checkbox, Group, LoadingOverlay, PasswordInput, Radio, rem, TextInput } from "@mantine/core"
-import { IconAt, IconCheck, IconCross, IconLock, IconX } from "@tabler/icons-react"
+import { IconAt, IconLock} from "@tabler/icons-react"
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom"
 import { registerUser } from "../../Services/UserService";
 import { signupValidation } from "../../Services/FormValidation";
-import { notifications } from "@mantine/notifications";
 import { errorNotification, successNotification } from "../../Services/NotificationService";
 
-
+/**
+ * Signup Component
+ * 
+ * Handles new user registration with form validation and account type selection.
+ * 
+ * @component
+ * 
+ * Features:
+ * - Full name, email, and password input fields
+ * - Password confirmation with matching validation
+ * - Account type selection (Applicant/Employer)
+ * - Terms & Conditions acceptance
+ * - Real-time form validation
+ * - Loading state during registration
+ * - Success/Error notifications
+ * - Navigation after successful signup
+ * 
+ * Visual Elements:
+ * - Input fields with icons
+ * - Radio buttons for account type
+ * - Loading overlay during registration
+ * - Submit button with loading state
+ * - Link to login page
+ * 
+ * Layout:
+ * - Centered form layout
+ * - Consistent spacing between elements
+ * - Responsive width (50% of container)
+ * 
+ * State:
+ * @property {Object} data - Form input values
+ *   - name: User's full name
+ *   - email: User's email address
+ *   - password: User's password
+ *   - confirmPassword: Password confirmation
+ *   - accountType: Selected account type (APPLICANT/EMPLOYEE)
+ * @property {Object} formError - Form validation errors
+ * @property {boolean} loading - Controls loading overlay
+ * 
+ * Form Validation:
+ * - Name presence check
+ * - Email format validation
+ * - Password requirements check
+ * - Password matching validation
+ * - Real-time error clearing
+ * 
+ * API Integration:
+ * - Calls registerUser service
+ * - Handles success/failure responses
+ * - Shows appropriate notifications
+ * 
+ * Navigation:
+ * - Redirects to login page after successful registration
+ * - Links to login page for existing users
+ * 
+ * @returns {JSX.Element} A signup form interface
+ */
 export const Signup = () => {
     const form = {
         name: "",
@@ -20,6 +75,11 @@ export const Signup = () => {
     const [data, setData] = useState<{ [key: string]: string }>(form)
     const [formError, setFormError] = useState<{ [key: string]: string }>(form)
     const [loading, setLoading] = useState(false)
+
+    /**
+     * Handles form input changes and validates in real-time
+     * @param {React.ChangeEvent|string} event - Input change event or account type string
+     */
     const handleChange = (event: any) => {
         if (typeof (event) == "string") {
             setData({ ...data, accountType: event })
@@ -42,6 +102,10 @@ export const Signup = () => {
         }
     }
 
+    /**
+     * Handles form submission and user registration
+     * Validates all inputs before making API call
+     */
     const handleSubmit = () => {
         let valid = true, newFormError: { [key: string]: string } = {};
 

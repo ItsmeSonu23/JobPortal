@@ -1,9 +1,43 @@
+/**
+ * Utility functions for date formatting and file handling
+ */
+
+/**
+ * Formats a date string into a short month and year format
+ * 
+ * @param {string} dateString - ISO date string to format
+ * @returns {string} Formatted date string (e.g. "Jan 2024")
+ * 
+ * @example
+ * formatDate("2024-01-15") // Returns "Jan 2024"
+ */
 export const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     const options = { years: 'numeric' as const, month: 'short' as const }
     return date.toLocaleString('en-US', options)
 }
 
+/**
+ * Converts a timestamp into a human-readable relative time string
+ * 
+ * Calculates the time difference between now and the provided timestamp,
+ * returning a string like "5 minutes ago" or "2 months ago"
+ * 
+ * @param {string} time - ISO timestamp to convert
+ * @returns {string} Human readable relative time string
+ * 
+ * Handles these time ranges:
+ * - Seconds (< 1 minute)
+ * - Minutes (< 1 hour) 
+ * - Hours (< 1 day)
+ * - Days (< 30 days)
+ * - Months (< 1 year)
+ * - Years
+ * 
+ * @example
+ * timeAgo("2024-01-15T10:30:00") // Returns "5 minutes ago"
+ * timeAgo("2023-01-15T10:30:00") // Returns "1 year ago"
+ */
 export const timeAgo = (time:string) => {
     const now = new Date();
     const date = new Date(time); // Parse the ISO string into a Date object
@@ -44,11 +78,30 @@ export const timeAgo = (time:string) => {
     return `${Math.floor(years)} year${years !== 1 ? 's' : ''} ago`;
 }
 
-export const getBase64 =(file:any)=>{
-    return new Promise((res,rej)=>{
+/**
+ * Converts a file to base64 encoded string
+ * 
+ * Uses FileReader to read file contents and convert to base64 format.
+ * Useful for image preview and file upload handling.
+ * 
+ * @param {File} file - File object to convert
+ * @returns {Promise<string>} Promise resolving to base64 encoded string
+ * @rejects {Error} Rejects if file reading fails
+ * 
+ * @example
+ * const file = event.target.files[0];
+ * try {
+ *   const base64 = await getBase64(file);
+ *   // Use base64 string
+ * } catch (error) {
+ *   console.error('Failed to convert file:', error);
+ * }
+ */
+export const getBase64 = (file: any) => {
+    return new Promise((res, rej) => {
         const reader = new FileReader()
         reader.readAsDataURL(file)
-        reader.onload=()=>res(reader.result)
-        reader.onerror = error =>rej(error)
+        reader.onload = () => res(reader.result)
+        reader.onerror = error => rej(error)
     })
 }
