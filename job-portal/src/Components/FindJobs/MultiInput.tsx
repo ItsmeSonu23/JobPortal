@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Checkbox, Combobox, Group, Input, Pill, PillsInput, useCombobox } from '@mantine/core';
 import { IconSelector } from '@tabler/icons-react';
-
+import { useDispatch } from 'react-redux';
+import { updateFilter } from '../../Slices/FilterSlice';
 /**
  * MultiInput Component
  * 
@@ -46,6 +47,9 @@ import { IconSelector } from '@tabler/icons-react';
  * @returns {JSX.Element} A multi-select input component with dropdown
  */
 export const MultiInput = (props:any) => {
+
+    const dispatch = useDispatch()
+
     useEffect(()=>{
         setData(props.options)
     },[])
@@ -65,7 +69,9 @@ export const MultiInput = (props:any) => {
 
         if (val === '$create') {
             createNewItem(search);
+            dispatch(updateFilter({[props.title]:[...value,search]}))
         } else {
+            dispatch(updateFilter({[props.title]:value.includes(val)?value.filter((v:any)=>v!==val):[...value,val]}))
             toggleItemSelection(val);
         }
     };
@@ -81,8 +87,11 @@ export const MultiInput = (props:any) => {
         );
     };
 
-    const handleValueRemove = (val: string) =>
+    const handleValueRemove = (val: string) =>{
+        dispatch(updateFilter({[props.title]:value.filter((v:any)=>v!==val)}))
         setValue((current) => current.filter((v) => v !== val));
+    }
+
 
     const values = value
         .slice(0, 1)
@@ -138,11 +147,11 @@ export const MultiInput = (props:any) => {
                 </PillsInput>
             </Combobox.DropdownTarget>
 
-            <Combobox.Dropdown>
+            <Combobox.Dropdown style={{ maxHeight: '200px', overflowY: 'auto' }}>
                 <Combobox.Search
                     value={search}
                     onChange={(event) => setSearch(event.currentTarget.value)}
-                    placeholder="Search groceries"
+                    placeholder="Search"
                 />
                 <Combobox.Options>
                     {options}

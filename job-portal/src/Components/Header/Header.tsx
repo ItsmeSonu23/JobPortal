@@ -1,5 +1,4 @@
-import { Button, Indicator } from "@mantine/core"
-import { IoIosNotifications } from "react-icons/io"
+import { Button } from "@mantine/core"
 import { TbCloverFilled } from "react-icons/tb"
 import { NavLinks } from "./NavLinks"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
@@ -8,7 +7,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { getProfile } from "../../Services/ProfileService"
 import { setProfile } from "../../Slices/ProfileSlice"
-
+import { NotiMenu } from "./NotiMenu"
+import { jwtDecode } from "jwt-decode"
+import { setUser } from "../../Slices/UserSlice"
+import { setupResponseInterceptor } from "../../Interceptor/AxiosInterceptor"
 /**
  * Header Component
  * 
@@ -32,27 +34,40 @@ import { setProfile } from "../../Slices/ProfileSlice"
 export const Header = () => {
     const navigate = useNavigate()
     const location = useLocation()
-    const user = useSelector((state:any)=>state.user)
+    const user = useSelector((state: any) => state.user)
+    const token = useSelector((state: any) => state.jwt)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setupResponseInterceptor(navigate);
+    }, [navigate]);
 
     // Fetch user profile data when user ID is available
     useEffect(() => {
-        if (user && user.profileId) {
-            getProfile(user.profileId)
-                .then((res: any) => {
-                    dispatch(setProfile(res))
-                })
-                .catch((err: any) => {
-                    console.log(err);
-                })
+        const tokenFromStorage = localStorage.getItem("token");
+        if (tokenFromStorage) {
+            try {
+                const decoded = jwtDecode(tokenFromStorage);
+                dispatch(setUser({ ...decoded, email: decoded.sub }));
+            } catch (error) {
+                console.error("Failed to decode token:", error);
+            }
         }
-    }, [user])
+        if (user && user.profileId) {
+            getProfile(user?.profileId).then((res) => {
+                dispatch(setProfile(res));
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    }, [token, navigate, user && user.profileId]);
 
-    return ( location.pathname != "/signup" && location.pathname != "/login" ?
+
+    return (location.pathname != "/signup" && location.pathname != "/login" ?
         // Main header container
         <div className="w-full px-6 bg-[var(--color-mine-shaft-950)] h-28 font-['Karla'] text-white flex justify-between items-center">
             {/* Logo and branding section */}
-            <div className="flex gap-3 items-center text-[var(--color-electric-violet-500)]" onClick={()=>navigate("/")}>
+            <div className="flex gap-3 items-center text-[var(--color-electric-violet-500)]" onClick={() => navigate("/")}>
                 <TbCloverFilled className="text-5xl" />
                 <div className="text-3xl font-semibold">
                     Clover
@@ -60,24 +75,22 @@ export const Header = () => {
             </div>
 
             {/* Main navigation links */}
-            <NavLinks/>
+            <NavLinks />
 
             {/* User profile and notifications section */}
             <div className="flex gap-4 items-center ">
                 {/* Conditional rendering of profile menu or login button based on auth state */}
-                {user ? 
-                    <ProfileMenu/> : 
+                {user ?
+                    <ProfileMenu /> :
                     <NavLink to={"/login"}>
                         <Button variant="filled" color="darkorchid">Login</Button>
                     </NavLink>
                 }
 
                 {/* Notification indicator with processing animation */}
-                <div className="p-2 rounded-full bg-[var(--color-mine-shaft-900)]">
-                    <Indicator color="#8a2be2" offset={6} size={8} processing>
-                        <IoIosNotifications className="text-2xl" />
-                    </Indicator>
-                </div>
+                {
+                    user ? <NotiMenu /> : <></>
+                }
             </div>
         </div>
         : <></>

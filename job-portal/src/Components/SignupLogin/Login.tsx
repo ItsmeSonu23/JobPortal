@@ -1,14 +1,16 @@
 import { TextInput, rem, PasswordInput, Button, LoadingOverlay } from "@mantine/core"
-import { IconAt,IconLock } from "@tabler/icons-react"
+import { IconAt, IconLock } from "@tabler/icons-react"
 import { useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
-import { loginUser } from "../../Services/UserService"
 import { loginValidation } from "../../Services/FormValidation"
 import { useDisclosure } from "@mantine/hooks"
 import { ResetPassword } from "./ResetPassword"
 import { useDispatch } from "react-redux"
 import { setUser } from "../../Slices/UserSlice"
 import { errorNotification, successNotification } from "../../Services/NotificationService"
+import { setJwt } from "../../Slices/JwtSlice"
+import { loginUser } from "../../Services/AuthService"
+import { jwtDecode } from "jwt-decode"
 
 /**
  * Initial form state with empty email and password
@@ -92,37 +94,35 @@ export const Login = () => {
      * Handles form submission and authentication
      * Validates inputs, calls login API, and handles response
      */
-    const handleSubmit = () => {
-      
+    const handleSubmit = async () => {
         let valid = true, newFormError: { [key: string]: string } = {};
         for (let key in data) {
             newFormError[key] = loginValidation(key, data[key]);
-            if (newFormError[key]) valid = false
+            if (newFormError[key]) valid = false;
         }
-        setFormError(newFormError)
+        setFormError(newFormError);
         if (valid) {
-            setLoading(true)
-            loginUser(data)
-                .then((res) => {
-                    console.log(res)
-                    successNotification("Login Successfull", "Redirecting to Home-page...")
-                    setTimeout(() => {
-                        setLoading(false)
-                        dispatch(setUser(res))
-                        navigate("/")
-                    }, 4000)
-                })
-                .catch((error) => {
-                    setLoading(false)
-                    console.log(error.response.data)
-                    errorNotification("Login Failed", error.response.data.errorMessage)
-                })
+            setLoading(true);
+            try {
+                const res = await loginUser(data);
+                successNotification("Login Successful", "Redirecting to Home-page...");
+                dispatch(setJwt(res.jwt));
+                const decoded = jwtDecode(res.jwt);
+                dispatch(setUser({ ...decoded, email: decoded.sub }));
+                setTimeout(() => {
+                    setLoading(false);
+                    navigate("/");
+                }, 4000);
+            } catch (error) {
+                setLoading(false);
+                const errorMessage = (error.response?.data?.errorMessage || "Login Failed");
+                errorNotification("Login Failed", errorMessage);
+            }
         }
-
     }
     return (
         <>
-        <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{radius:"sm",blur:"2"}} loaderProps={{color:"darkorchid", type:"dots"}}/>
+            <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: "2" }} loaderProps={{ color: "darkorchid", type: "dots" }} />
             <div className="w-1/2 px-20 flex flex-col justify-center gap-5">
                 <div className="text-5xl font-semibold">Login Your Account</div>
                 <TextInput error={formError.email} name="email" value={data.email} withAsterisk leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />} label="Email" placeholder="Enter your email" onChange={handleChange} />

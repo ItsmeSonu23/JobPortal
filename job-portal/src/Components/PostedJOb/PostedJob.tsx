@@ -72,9 +72,10 @@ export const PostedJob = (props: any) => {
     // Calculate job counts for each status
     const activeJobCount = props.jobList?.filter((job: any) => job?.jobStatus === 'ACTIVE').length || 0;
     const draftJobCount = props.jobList?.filter((job: any) => job?.jobStatus === 'DRAFT').length || 0;
+    const closedJobCount = props.jobList?.filter((job: any) => job?.jobStatus === 'CLOSED').length || 0;
 
     return (
-        <div className="w-1/6 mt-5">
+        <div className="w-1/5 mt-5">
             <div className="text-2xl font-semibold mb-5">Jobs</div>
             <div className="">
                 {/* Tabbed navigation for job status filtering */}
@@ -82,6 +83,7 @@ export const PostedJob = (props: any) => {
                     <Tabs.List className="[&_button[aria-selected='false']]:bg-[var(--color-mine-shaft-900)] font-medium">
                         <Tabs.Tab value="ACTIVE">Active [{activeJobCount}]</Tabs.Tab>
                         <Tabs.Tab value="DRAFT">Draft [{draftJobCount}]</Tabs.Tab>
+                        <Tabs.Tab value="CLOSED">Closed [{closedJobCount}]</Tabs.Tab>
                     </Tabs.List>
                 </Tabs>
                 {/* Container for filtered job cards */}

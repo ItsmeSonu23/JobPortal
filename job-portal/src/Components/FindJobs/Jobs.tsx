@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react"
-import { JobCart } from "./JobCard"
-import { Sort } from "./Sort-LAPTOP-03RLHC76"
-import { getAllJobs } from "../../Services/JobService"
+import { useEffect, useState } from "react" // Importing React hooks for managing component state and side effects
+import { JobCart } from "./JobCard" // Importing JobCart component for displaying individual job listings
+import { Sort } from "./Sort" // Importing Sort component for sorting job listings
+import { getAllJobs } from "../../Services/JobService" // Importing service function to fetch job data
+import { useSelector, useDispatch } from "react-redux" // Importing Redux hooks for state management
+import { resetFilter } from "../../Slices/FilterSlice" // Importing action to reset filters in the Redux store
+import { resetSort } from "../../Slices/SortSlice"
 
 /**
  * Jobs Component
@@ -41,24 +44,67 @@ import { getAllJobs } from "../../Services/JobService"
  * @returns {JSX.Element} A container with job listings header and grid
  */
 export const Jobs = () => {
-    const [jobList, setJobList] = useState([{}])
-    
-    useEffect(() => {
-        getAllJobs().then((res) => {
-            setJobList(res)
-        }).catch((err) => {
-            console.log(err);
-        })
-    }, [])
+    const dispatch = useDispatch() // Getting the dispatch function from Redux
+    const [jobList, setJobList] = useState([{}]) // State to hold the list of jobs, initialized with an empty object
+    const filter = useSelector((state: any) => state.filter) // Selecting the filter state from Redux store
+    const sort = useSelector((state: any) => state.sort) // Selecting the sort state from Redux store
+    const [filteredJobs, setFilteredJobs] = useState<any>([]) // State to hold the filtered job listings
 
-    return <div className="p-7">
-        <div className="flex justify-between">
-            <div className="text-2xl font-semibold">Recommended Jobs</div>
-            <Sort />
+    useEffect(() => {
+        dispatch(resetFilter()) // Resetting filters when the component mounts
+        dispatch(resetSort()) // Resetting sort when the component mounts
+        getAllJobs().then((res) => { // Fetching job data from the API
+            setJobList(res.filter((job: any) => job.jobStatus === "ACTIVE")) // Updating jobList with active jobs only
+        }).catch((err) => { // Handling any errors during the fetch
+            console.log(err); // Logging the error to the console
+        })
+    }, []) // Empty dependency array means this effect runs once on mount
+
+    useEffect(() => {   
+        if (sort=="Most Recent") {
+            setJobList([...jobList].sort((a: any, b: any) => new Date(b.postTime).getTime() - new Date(a.postTime).getTime()))
+        }
+        if (sort=="Salary(Low to High)") {
+            setJobList([...jobList].sort((a: any, b: any) => a.packageOffered - b.packageOffered))
+        }
+        if (sort=="Salary(High to Low)") {
+            setJobList([...jobList].sort((a: any, b: any) => b.packageOffered - a.packageOffered))
+        }
+    }, [sort])
+
+    useEffect(() => {
+        let filteredJobs = jobList // Starting with the full job list
+        if (filter["Job Title"] && filter["Job Title"].length > 0) { // Checking if there are job title filters
+            filteredJobs = filteredJobs.filter((job: any) => filter["Job Title"].some((jobTitle: any) => job.jobTitle?.toLowerCase().includes(jobTitle.toLowerCase()))) // Filtering jobs by title
+        }
+        if (filter["Location"] && filter["Location"].length > 0) { // Checking if there are location filters
+            filteredJobs = filteredJobs.filter((job: any) => filter["Location"].some((location: any) => job.location?.toLowerCase().includes(location.toLowerCase()))) // Filtering jobs by location
+        }
+        if (filter["Experience"] && filter["Experience"].length > 0) { // Checking if there are experience filters
+            filteredJobs = filteredJobs.filter((job: any) => 
+                filter["Experience"].some((exp: string) => job.expirience.toLowerCase().includes(exp.toLowerCase())) // Filtering jobs by experience
+            )
+        }
+        if (filter["Job Type"] && filter["Job Type"].length > 0) { // Checking if there are job type filters
+            filteredJobs = filteredJobs.filter((job: any) => filter["Job Type"].some((jobType: any) => job.jobType?.toLowerCase().includes(jobType.toLowerCase()))) // Filtering jobs by job type
+        }
+        if (filter.exp && filter.exp.length > 0) { // Checking if there are experience range filters
+            filteredJobs = filteredJobs.filter((job: any) => filter.exp[0] <= job.expirience && filter.exp[1] >= job.expirience) // Filtering jobs by experience range
+        }
+        if (filter.salary && filter.salary.length === 2) { // Checking if there are salary range filters and ensuring it has two values
+            filteredJobs = filteredJobs.filter((job: any) => filter.salary[0] <= job.packageOffered && job.packageOffered <= filter.salary[1]); // Filtering jobs by salary range
+        }
+        setFilteredJobs(filteredJobs) // Updating the state with the filtered job list
+    }, [filter, jobList]) // This effect runs when filter or jobList changes
+
+    return <div className="p-7"> {/* Main container with padding */}
+        <div className="flex justify-between"> {/* Flex container for header */}
+            <div className="text-2xl font-semibold">Recommended Jobs</div> {/* Heading for the job listings */}
+            <Sort sort="job" /> {/* Including the Sort component for sorting options */}
         </div>
-        <div className="mt-10 mx-5 flex flex-wrap gap-10">
+        <div className="mt-10 mx-5 flex flex-wrap gap-10"> {/* Container for job listings with margin and gap */}
             {
-                jobList.map((job, index) => <JobCart key={index} {...job} />)
+                filteredJobs.length ? filteredJobs.map((job: any, index: any) => <JobCart key={index} {...job} />) : <div className="text-center text-2xl font-semibold">No Jobs Found</div> // Mapping through filtered jobs or displaying a message if none found
             }
         </div>
     </div>

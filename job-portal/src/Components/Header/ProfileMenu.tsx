@@ -2,7 +2,7 @@ import { Menu, Avatar, Switch } from "@mantine/core"
 import { IconMessageCircle, IconUserCircle, IconMoon, IconMoonStars, IconSun, IconLogout } from "@tabler/icons-react"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { removeUser } from "../../Slices/UserSlice"
 
 /**
@@ -33,12 +33,14 @@ export const ProfileMenu = () => {
     const user = useSelector((state:any)=>state.user)
     const profile = useSelector((state:any)=> state.profile)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     /**
      * Handles user logout by dispatching removeUser action
      */
     const handleLogout = () => {
         dispatch(removeUser())
+        navigate("/login")
     }
 
     return (

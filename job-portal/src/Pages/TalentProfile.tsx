@@ -48,22 +48,30 @@
 
 import { Button, Divider } from "@mantine/core"
 import { IconArrowLeft } from "@tabler/icons-react"
-import { NavLink } from "react-router-dom"
-import { profileData } from "../Data/Data"
+import { useNavigate } from "react-router-dom"
 import { RecommendedTalent } from "../Components/TalentProfile/RecommendedTalent"
 import { Profile } from "../Components/TalentProfile/Profile"
+import { useState } from "react"
+import { useEffect } from "react"
+import { getAllProfiles } from "../Services/ProfileService"
 
 export const TalentProfile = () => {
+    const navigate = useNavigate()
+    const [talents, setTalents] = useState<any[]>([])
+    useEffect(() => {
+        getAllProfiles().then((res) => {
+            setTalents(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }, [])           
     return <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-10 py-4">
-        <NavLink className="my-4 inline-block " to={"/find-talent"}>
-            <Button leftSection={<IconArrowLeft size={20}/>} color="darkorchid" variant="light">Back</Button>
-        </NavLink>
+        <Button my={"sm"} leftSection={<IconArrowLeft size={20} />} color="darkorchid" variant="light" onClick={() => navigate(-1)}>Back</Button>
+
         <Divider size="sm" />
         <div className="flex gap-10">
-            {
-                profileData.map((data, index) => <Profile key={index} {...data} />)
-            }
-            <RecommendedTalent/>
+            <Profile />
+            <RecommendedTalent talents={talents} />
         </div>
     </div>
 }

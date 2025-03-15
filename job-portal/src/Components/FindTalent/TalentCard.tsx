@@ -1,10 +1,13 @@
-import { Avatar, Button, Divider, Modal } from "@mantine/core"
+import { Avatar, Button, Divider, Modal, Text } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import { IconCalendarMonth, IconHeart, IconMapPin } from "@tabler/icons-react"
 import { useEffect, useRef, useState } from "react"
 import { getProfile } from "../../Services/ProfileService"
-import { NavLink } from "react-router-dom"
+import { NavLink, useParams } from "react-router-dom"
 import { DateInput, TimeInput } from "@mantine/dates"
+import { changeAppStatus } from "../../Services/JobService"
+import { errorNotification, successNotification } from "../../Services/NotificationService"
+import { formatInterviewTime, openBase64PDF } from "../../Services/Utilities"
 
 /**
  * TalentCard Component
@@ -66,11 +69,13 @@ import { DateInput, TimeInput } from "@mantine/dates"
  * @returns {JSX.Element} A talent profile card with interactive features
  */
 export const TalentCard = (props: any) => {
+    const { id } = useParams()
     const ref = useRef<HTMLInputElement>(null)
     const [profile, setProfile] = useState<any>(null)
     const [opened, { open, close }] = useDisclosure(false)
-    const [value, setValue] = useState<Date | null>(null)
-
+    const [app, { open: openApp, close: closeApp }] = useDisclosure(false)
+    const [date, setDate] = useState<Date | null>(null)
+    const [time, setTime] = useState<string>("")
     useEffect(() => {
         if (props.applicantId) getProfile(props.applicantId).then((res: any) => {
             setProfile(res)
@@ -80,7 +85,32 @@ export const TalentCard = (props: any) => {
         else setProfile(props)
     }, [props])
 
-    return <div className="p-4, rounded-xl bg-[var(--color-mine-shaft-900)] hover:shadow-[0_0_5px_1px_darkorchid] !shadow-[var(--color-electric-violet-500)] transition duration-300 ease-in-out w-96 flex flex-col gap-3">
+    const handleOffer = (status: string) => {
+        let interview: any = { id: id, applicantId: profile?.id, applicationStatus: status }
+        if (status == "INTERVIEWING") {
+            const [hours, minutes] = time.split(":").map(Number);
+            date?.setHours(hours, minutes)
+            interview.interviewTime = date
+        }
+        changeAppStatus(interview).then((res: any) => {
+            console.log(res);
+
+            if (status == "INTERVIEWING") successNotification("Interview Scheduled Successfully", "You can now view the interview details in the interview section")
+            else if (status == "OFFERED") successNotification("Application Offered Successfully", "You can now view the application details in the application section")
+            else if (status == "REJECTED") successNotification("Application Rejected Successfully", "You can now view the application details in the application section")
+            window.location.reload()
+
+        }).catch((err: any) => {
+            console.log(err)
+            if (err.response && err.response.status === 403) {
+                errorNotification("CORS Error", "Access to the requested resource is blocked by CORS policy")
+            } else {
+                errorNotification("Failed to Schedule Interview", "Please try again")
+            }
+        })
+    }
+
+    return <div className="p-4 rounded-xl bg-[var(--color-mine-shaft-900)] hover:shadow-[0_0_5px_1px_darkorchid] !shadow-[var(--color-electric-violet-500)] transition duration-300 ease-in-out w-96 flex flex-col gap-3">
         <div className="flex justify-between">
             <div className="flex gap-2 items-center">
                 <div className="p-2 bg-[var(--color-mine-shaft-800)] rounded-full">
@@ -95,19 +125,22 @@ export const TalentCard = (props: any) => {
         </div>
         <div className="flex gap-2">
             {
-                profile?.skills.map((skill: any, index: any) => index < 4 && <div key={index} className="p-2, py-1, bg-[var(--color-mine-shaft-800)] rounded-lg text-xs text-[var(--color-electric-violet-500)]">
+                profile?.skills?.length > 0 ? profile.skills.map((skill: any, index: any) => index < 4 && <div key={index} className="p-2, py-1, bg-[var(--color-mine-shaft-800)] rounded-lg text-xs text-[var(--color-electric-violet-500)]">
                     {skill}
-                </div>)
+                </div>) : <div className="text-xs text-[var(--color-mine-shaft-300)]">No skills available</div>
             }
         </div>
+        <Text className="!text-xs text-justify text-[var(--color-mine-shaft-300)]">
+            {profile?.about}
+        </Text>
         <Divider color="var(--color-mine-shaft-800)" size={"xs"} />
         {
-            profile?.invited ? <div className="flex gap-1 text-sm text-[var(--color-mine-shaft-300)] items-center">
-                <IconCalendarMonth stroke={1.5} /> Interview : August 27, 2024 10:00 AM
+            props.invited ? <div className="flex gap-1 text-sm text-[var(--color-mine-shaft-300)] items-center">
+                <IconCalendarMonth stroke={1.5} /> Interview :  {formatInterviewTime(props.interviewTime)}
             </div> :
                 <div className="flex justify-between">
-                    <div className="font-semibold text-[var(--color-mine-shaft-200)]">
-                        23 LPA
+                    <div className="font-semibold text-[var(--color-mine-shaft-300)]">
+                        Exp: {props.totalExp?props.totalExp+" years":"Fresher"}
                     </div>
                     <div className="text-xs text-[var(--color-mine-shaft-300)] flex gap-1 items-center">
                         <IconMapPin className="h-5 w-5" /> {profile?.location}
@@ -119,7 +152,7 @@ export const TalentCard = (props: any) => {
             {
                 !props.invited &&
                 <>
-                    <NavLink to={"/talent-profile"}>
+                    <NavLink to={`/talent-profile/${profile?.id}`}>
                         <Button variant="outline" color="var(--color-electric-violet-500)">View Profile</Button>
                     </NavLink>
                     <div>
@@ -134,19 +167,39 @@ export const TalentCard = (props: any) => {
                 props.invited &&
                 <>
                     <div>
-                        <Button variant="light" color="var(--color-electric-violet-500) " fullWidth>Accept</Button>
+                        <Button variant="light" color="var(--color-electric-violet-500) " onClick={() => handleOffer("OFFERED")} fullWidth>Accept</Button>
                     </div>
                     <div>
-                        <Button variant="light" color="var(--color-electric-violet-500) " fullWidth>Reject</Button>
+                        <Button variant="light" color="var(--color-electric-violet-500) " onClick={() => handleOffer("REJECTED")} fullWidth>Reject</Button>
                     </div>
                 </>
             }
         </div>
+        {
+            (props.invited || props.posted) ? <Button variant="filled" color="var(--color-electric-violet-500) " fullWidth onClick={openApp} autoContrast>View Application</Button> : null
+        }
         <Modal opened={opened} onClose={close} title="Schedule Interview" radius={"lg"}>
-            <div className=" flex-col gap-4">
-                <DateInput value={value} onChange={setValue} minDate={new Date()} label="Date"  placeholder="Select Date"/>
-                <TimeInput  label="Time" ref={ref} minTime="" onClick={()=>ref.current?.showPicker()}/>
-                <Button variant="light" color="var(--color-electric-violet-500) " fullWidth>Schedule</Button>
+            <div className="flex flex-col gap-4">
+                <DateInput value={date} onChange={setDate} minDate={new Date()} label="Date" placeholder="Select Date" />
+                <TimeInput label="Time" value={time} onChange={(event) => setTime(event.currentTarget.value)} ref={ref} minTime="" onClick={() => ref.current?.showPicker()} />
+                <Button onClick={() => handleOffer("INTERVIEWING")} variant="light" color="var(--color-electric-violet-500) " fullWidth>Schedule</Button>
+            </div>
+        </Modal>
+        <Modal opened={app} onClose={closeApp} title="Application Details" radius={"lg"}>
+            <div className="flex flex-col gap-4">
+                <div className="">
+                    Email: &emsp; <a className="text-[var(--color-electric-violet-500)] hover:underline cursor-pointer text-center" href={`mailto:${props?.email}`}>{props?.email}</a>
+                </div>
+                <div className="">
+                    Website: &emsp; <a target="_blank" rel="noopener noreferrer" className="text-[var(--color-electric-violet-500)] hover:underline cursor-pointer text-center" href={`${props?.website}`}>{props?.website}</a>
+                </div>
+                <div className="">
+                    Resume: &emsp; <span className="text-[var(--color-electric-violet-500)] hover:underline cursor-pointer text-center" onClick={() => openBase64PDF(props?.resume)}>{props?.name}</span>
+                </div>
+                <div className="">
+                    Cover Letter: &emsp; <div>{props?.coverLetter}</div>
+                </div>
+
             </div>
         </Modal>
     </div>

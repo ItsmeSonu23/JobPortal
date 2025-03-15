@@ -57,4 +57,15 @@ public interface UserService {
      * @throws JobPortalException if password change fails
      */
     public ResponseDto changePassword(LoginDto loginDto) throws JobPortalException;
+
+    /**
+     * Retrieves a user by their email address.
+     *
+     * @param email The email address of the user to retrieve
+     * @return UserDto containing the user's information
+     * @throws JobPortalException if user is not found
+     */
+    public UserDto getUserByEmail(String email) throws JobPortalException;
+    
+    
 }

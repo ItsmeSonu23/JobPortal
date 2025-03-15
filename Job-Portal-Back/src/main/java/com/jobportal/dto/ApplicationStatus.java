@@ -12,7 +12,7 @@ public enum ApplicationStatus {
     APPLIED,
     
     /** Status indicating candidate is in interview process */
-    INTERVEWING,
+    INTERVIEWING,
     
     /** Status indicating job offer has been extended */
     OFFERED,

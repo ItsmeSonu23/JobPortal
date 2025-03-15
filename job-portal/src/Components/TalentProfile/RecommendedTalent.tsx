@@ -1,6 +1,9 @@
+import { useEffect } from "react"
+import { useState } from "react"
+import { getAllProfiles } from "../../Services/ProfileService"
 import { talents } from "../../Data/Data"
 import { TalentCard } from "../FindTalent/TalentCard"
-
+import { useParams } from "react-router-dom"
 /**
  * RecommendedTalent Component
  * 
@@ -38,11 +41,12 @@ import { TalentCard } from "../FindTalent/TalentCard"
  * 
  * @returns {JSX.Element} A section showing recommended talent profiles
  */
-export const RecommendedTalent = () => {
+export const RecommendedTalent = (props:any) => {
+    const {id} = useParams()
     return <div className="">
         <div className="text-xl font-semibold mb-5">Recommended Talent</div>
         <div className="flex flex-col flex-wrap gap-5">
-            {talents.map((talent, index) => index < 4 && <TalentCard key={index} {...talent}/>)}
+            {props?.talents.map((talent:any, index:any) => index < 4 && id!=talent._id && <TalentCard key={index} {...talent}/>)}
         </div>
     </div>
 }

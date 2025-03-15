@@ -1,6 +1,6 @@
 import { jobList } from "../../Data/Data"
 import { JobCart } from "../FindJobs/JobCard"
-import { Sort } from "../FindJobs/Sort-LAPTOP-03RLHC76"
+import { Sort } from "../FindJobs/Sort"
 
 /**
  * CompanyJobs Component

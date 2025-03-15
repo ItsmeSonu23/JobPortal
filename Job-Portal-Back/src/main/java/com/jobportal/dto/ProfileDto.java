@@ -23,6 +23,9 @@ public class ProfileDto {
     /** Unique identifier for the profile */
     private Long id;
 
+    /** Name of the user */
+    private String name;
+
     /** Email address associated with the profile */
     private String email;
 
@@ -40,6 +43,9 @@ public class ProfileDto {
 
     /** Base64 encoded profile picture */
     private String picture;
+
+    /** Total experience of the user */
+    private Long totalExp;
 
     /** List of professional skills and competencies */
     private List<String> skills;

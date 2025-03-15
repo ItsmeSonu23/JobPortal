@@ -30,6 +30,9 @@ public class Profile {
     @Id
     private Long id;
 
+    /** Name of the user */
+    private String name;
+
     /** Email address associated with the profile */
     private String email;
 
@@ -47,6 +50,9 @@ public class Profile {
 
     /** Profile picture stored as byte array */
     private byte[] picture;
+
+    /** Total experience of the user */
+    private Long totalExp;
 
     /** List of professional skills */
     private List<String> skills;

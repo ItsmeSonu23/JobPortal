@@ -105,3 +105,21 @@ export const getBase64 = (file: any) => {
         reader.onerror = error => rej(error)
     })
 }
+
+
+export const formatInterviewTime = (date:any) => {
+    const dateTime = new Date(date)
+    return dateTime.toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })
+}
+
+export const openBase64PDF = (base64String:string) => {
+   const byteCharacters = atob(base64String);
+   const byteNumbers = new Array(byteCharacters.length);
+   for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+   }
+   const byteArray = new Uint8Array(byteNumbers);
+   const blob = new Blob([byteArray], {type: 'application/pdf'});
+   const pdfUrl = URL.createObjectURL(blob);
+   window.open(pdfUrl, '_blank');
+}

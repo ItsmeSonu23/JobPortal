@@ -22,6 +22,7 @@ import com.jobportal.repo.OtpRepo;
 import com.jobportal.repo.UserRepo;
 import com.jobportal.utility.Data;
 import com.jobportal.utility.Utilities;
+import com.jobportal.dto.NotificationDto;
 
 import jakarta.mail.internet.MimeMessage;
 
@@ -48,6 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private NotificationService notificationService;
 
     /**
      * Registers a new user in the system.
@@ -150,6 +154,11 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findByEmail(loginDto.getEmail()).orElseThrow(() -> new JobPortalException("OTP_NOT_FOUND"));
         user.setPassword(passwordEncoder.encode(loginDto.getPassword()));
         userRepo.save(user);
+        NotificationDto noti = new NotificationDto();
+        noti.setUserId(user.getId());
+        noti.setMessage("Password changed successfully");
+        noti.setAction("Password Reset");
+        notificationService.sendNotification(noti);
         return new ResponseDto("Password changed succesfully!");
     }
 
@@ -164,5 +173,11 @@ public class UserServiceImpl implements UserService {
         if(!expiredOtps.isEmpty()){
             otpRepo.deleteAll(expiredOtps);
         }
+    }
+
+    @Override
+    public UserDto getUserByEmail(String email) throws JobPortalException {
+        User user = userRepo.findByEmail(email).orElseThrow(() -> new JobPortalException("USER_NOT_FOUND"));
+        return modelMapper.map(user, UserDto.class);
     }
 }

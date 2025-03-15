@@ -54,7 +54,8 @@ import { ProfilePage } from "./ProfilePage"
 import { SignupPage } from "./SignupPage"
 import { TalentProfile } from "./TalentProfile"
 import { useSelector } from "react-redux"
-
+import { ProtectedRoute } from "../Services/ProtectedRoute"
+import { PublicRoute } from "../Services/PublicRout"    
 export const AppRoutes = () => {
     // Get current user from Redux store
     const user = useSelector((state:any)=>state.user)
@@ -66,17 +67,29 @@ export const AppRoutes = () => {
                 <Divider size="sm" mx="md" />
                 <Routes>
                     <Route path='/find-jobs' element={<FindJobs />} />
+
                     <Route path='/find-talent' element={<FindTalentPage />} />
+
                     <Route path='/company/:name' element={<CompanyPage />} />
-                    <Route path='/posted-job/:id' element={<PostedJobPage />} />
+
+                    <Route path='/posted-job/:id' element={<ProtectedRoute allowedRoles={["EMPLOYER"]}><PostedJobPage /></ProtectedRoute>} />
+
                     <Route path='/jobs/:id' element={<JobDescriptionPage />} />
-                    <Route path='/job-history' element={<JobHistoryPage />} />
-                    <Route path='/apply-jobs/:id' element={<ApplyJobPage />} />
-                    <Route path='/post-job' element={<PostJobPage />} />
-                    <Route path='/signup' element={user?<Navigate to={"/"}/>:<SignupPage />} />
-                    <Route path='/login' element={user?<Navigate to={"/"}/>:<SignupPage />} />
-                    <Route path='/profile' element={<ProfilePage />} />
-                    <Route path='/talent-profile' element={<TalentProfile />} />
+
+                    <Route path='/job-history' element={<ProtectedRoute allowedRoles={["APPLICANT"]}><JobHistoryPage /></ProtectedRoute>} />
+
+                    <Route path='/apply-jobs/:id' element={<ProtectedRoute allowedRoles={["APPLICANT"]}><ApplyJobPage /></ProtectedRoute>} />
+
+                    <Route path='/post-job/:id' element={<ProtectedRoute allowedRoles={["EMPLOYER"]}><PostJobPage /></ProtectedRoute>} />
+
+                    <Route path='/signup' element={<PublicRoute><SignupPage /></PublicRoute>} />
+
+                    <Route path='/login' element={<PublicRoute><SignupPage /></PublicRoute>} />
+
+                    <Route path='/profile' element={<ProtectedRoute allowedRoles={["EMPLOYER","TALENT"]}><ProfilePage /></ProtectedRoute>} />
+
+                    <Route path='/talent-profile/:id' element={<TalentProfile />} />
+
                     <Route path='*' element={<HomePage />} />
                 </Routes>
                 <Footer />

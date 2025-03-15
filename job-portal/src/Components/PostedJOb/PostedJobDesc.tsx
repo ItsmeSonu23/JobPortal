@@ -1,7 +1,7 @@
 import { Badge, Tabs } from "@mantine/core"
 import { TalentCard } from "../FindTalent/TalentCard"
 import { JobDescription } from "../JobDescription/JobDescription"
-
+import { useState, useEffect } from "react"
 /**
  * PostedJobDesc Component
  * 
@@ -57,39 +57,78 @@ import { JobDescription } from "../JobDescription/JobDescription"
  * @returns {JSX.Element} A detailed view of job posting and applicant management
  */
 export const PostedJobDesc = (props: any) => {
+    const [tab, setTab] = useState("overview")
+    const [arr, setArr] = useState<any>([])
+    const handleTab= (value: any) => {   
+        setTab(value)
+        if(value=="applicants"){
+            setArr(props.applicants?.filter((x: any) => x.applicationStatus === "APPLIED"))
+        }else if(value=="invited"){
+            setArr(props.applicants?.filter((x: any) => x.applicationStatus === "INTERVIEWING"))
+        }else if(value=="offered"){
+            setArr(props.applicants?.filter((x: any) => x.applicationStatus === "OFFERED"))
+        }else if(value=="rejected"){
+            setArr(props.applicants?.filter((x: any) => x.applicationStatus === "REJECTED"))
+        }
+    }
+
+    useEffect(()=>{
+        handleTab("overview")
+    },[props])
 
     return <div className="mt-5 w-3/4 px-5">
-        <div className="text-2xl font-semibold flex items-center">{props.jobTitle} <Badge variant="light" ml="sm" size="sm" color="darkorchid">{props.jobStatus}</Badge></div>
-        <div className="font-medium text-[var(--color-mine-shaft-300)] mb-5">{props.location}</div>
-        <div className="">
-            <Tabs variant="outline" radius="lg" defaultValue="overview">
-                <Tabs.List className="[&_button]:!text-lg mb-5 font-semibold [&_button[data-active='true']]:!text-[var(--color-electric-violet-500)]">
-                    <Tabs.Tab value="overview">Overview</Tabs.Tab>
-                    <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
-                    <Tabs.Tab value="invited">Invited</Tabs.Tab>
-                    <Tabs.Tab value="offered">Offered</Tabs.Tab>
-                    <Tabs.Tab value="rejected">Rejected</Tabs.Tab>
-                </Tabs.List>
+        {
+            props.jobTitle ? (
+                <>
+                    <div className="text-2xl font-semibold flex items-center">
+                        {props.jobTitle} <Badge variant="light" ml="sm" size="sm" color="darkorchid">{props.jobStatus}</Badge>
+                    </div>
+                    {props.location && <div className="font-medium text-[var(--color-mine-shaft-300)] mb-5">{props.location}</div>}
+                    <div className="">
+                        <Tabs variant="outline" radius="lg" value={tab} onChange={handleTab}>
+                            <Tabs.List className="[&_button]:!text-lg mb-5 font-semibold [&_button[data-active='true']]:!text-[var(--color-electric-violet-500)]">
+                                <Tabs.Tab value="overview">Overview</Tabs.Tab>
+                                <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
+                                <Tabs.Tab value="invited">Invited</Tabs.Tab>
+                                <Tabs.Tab value="offered">Offered</Tabs.Tab>
+                                <Tabs.Tab value="rejected">Rejected</Tabs.Tab>
+                            </Tabs.List>
 
-                <Tabs.Panel value="overview" className="[&>div]:w-full">
-                    <JobDescription edit {...props} />
-                </Tabs.Panel>
-                <Tabs.Panel value="applicants">
-                    <div className="mt-10 flex flex-wrap gap-5">
-                        {
-                            props.applicants?.filter((x: any) => x.applicationStatus === "APPLIED"
-                            ).map((talent: any, index: any) => <TalentCard key={index} {...talent} posted={true} />)
-                        }
+                            <Tabs.Panel value="overview" className="[&>div]:w-full">
+                                <JobDescription edit={true}{...props} closed={props.jobStatus == "CLOSED"} />
+                            </Tabs.Panel>
+                            <Tabs.Panel value="applicants">
+                                <div className="mt-10 flex flex-wrap gap-5">
+                                    {arr?.length?arr.map((talent: any, index: any) => <TalentCard key={index} {...talent} posted={true} />) : <div className="text-2xl font-semibold text-center">No Applicants</div>}
+                                </div>
+                            </Tabs.Panel>
+                            <Tabs.Panel value="invited">
+                                <div className="mt-10 mx-5 flex flex-wrap gap-10">
+                                    {
+                                        arr?.length?arr.map((talent: any, index: any) => <TalentCard key={index} {...talent} invited={true} />) : <div className="text-2xl font-semibold text-center">No Invites</div>
+                                    }
+                                </div>
+                            </Tabs.Panel>
+                            <Tabs.Panel value="offered">
+                                <div className="mt-10 mx-5 flex flex-wrap gap-10">
+                                    {
+                                        arr?.length?arr.map((talent: any, index: any) => <TalentCard key={index} {...talent} offered={true} />) : <div className="text-2xl font-semibold text-center">No Offers</div>
+                                    }
+                                </div>
+                            </Tabs.Panel>
+                            <Tabs.Panel value="rejected">
+                                <div className="mt-10 mx-5 flex flex-wrap gap-10">
+                                    {
+                                        arr?.length?arr.map((talent: any, index: any) => <TalentCard key={index} {...talent} rejected={true} />) : <div className="text-2xl font-semibold text-center">No Rejected</div>
+                                    }
+                                </div>
+                            </Tabs.Panel>
+                        </Tabs>
                     </div>
-                </Tabs.Panel>
-                <Tabs.Panel value="invited">
-                    <div className="mt-10 mx-5 flex flex-wrap gap-10">
-                        {
-                            props.applicants?.filter((x: any) => x.applicationStatus === "INTERVIEWING").map((talent: any, index: any) => <TalentCard key={index} {...talent} invited={true} />)
-                        }
-                    </div>
-                </Tabs.Panel>
-            </Tabs>
-        </div>
+                </>
+            ) : (
+                <div className="text-2xl font-semibold flex items-center justify-center min-h-[70vh]">No Job Selected</div>
+            )
+        }
     </div>
 }

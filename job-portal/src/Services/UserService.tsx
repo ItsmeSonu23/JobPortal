@@ -1,9 +1,4 @@
-import axios from "axios";
-
-/**
- * Base URL for user-related API endpoints
- */
-const base_url = "http://localhost:8080/api/v1/users/";
+import axiosInstance from "../Interceptor/AxiosInterceptor";
 
 /**
  * Registers a new user in the system
@@ -28,12 +23,12 @@ const base_url = "http://localhost:8080/api/v1/users/";
  *   console.error("Registration failed:", error);
  * }
  */
-export const registerUser = async (user: any) => {
+export const registerUser = async (user: { email: string; password: string; name: string; }) => {
     try {
-        const res = await axios.post(`${base_url}register`, user);
+        const res = await axiosInstance.post(`/users/register`, user);
         return res.data;
-    } catch (error) {
-        throw error;
+    } catch (err) {
+        throw new Error(`Registration failed: ${err}`);
     }
 };
 
@@ -58,12 +53,12 @@ export const registerUser = async (user: any) => {
  *   console.error("Login failed:", error);
  * }
  */
-export const loginUser = async (user: any) => {
+export const loginUser = async (user: { email: string; password: string; }) => {
     try {
-        const res = await axios.post(`${base_url}login`, user);
+        const res = await axiosInstance.post(`/users/login`, user);
         return res.data;
-    } catch (error) {
-        throw error;
+    } catch (err) {
+        throw new Error(`Login failed: ${err}`);
     }
 };
 
@@ -84,12 +79,12 @@ export const loginUser = async (user: any) => {
  *   console.error("Failed to send OTP:", error);
  * }
  */
-export const sendOtp = async (email: any) => {
+export const sendOtp = async (email: string) => {
     try {
-        const res = await axios.post(`${base_url}sendOtp/${email}`);
+        const res = await axiosInstance.post(`/users/sendOtp/${email}`);
         return res.data;
-    } catch (error) {
-        throw error;
+    } catch (err) {
+        throw new Error(`Failed to send OTP: ${err}`);
     }
 };
 
@@ -111,12 +106,12 @@ export const sendOtp = async (email: any) => {
  *   console.error("OTP verification failed:", error);
  * }
  */
-export const verifyOtp = async (email: any, otp: any) => {
+export const verifyOtp = async (email: string, otp: string) => {
     try {
-        const result = await axios.get(`${base_url}verifyOtp/${email}/${otp}`);
-        return result.data;
-    } catch (error) {
-        throw error;
+        const res = await axiosInstance.get(`/users/verifyOtp/${email}/${otp}`);
+        return res.data;
+    } catch (err) {
+        throw new Error(`OTP verification failed: ${err}`);
     }
 };
 
@@ -138,11 +133,11 @@ export const verifyOtp = async (email: any, otp: any) => {
  *   console.error("Password change failed:", error);
  * }
  */
-export const changePassword = async(email: any, password: any) => {
+export const changePassword = async (email: string, password: string) => {
     try {
-        const res = await axios.post(`${base_url}changePass`, {email, password})
-        return res.data
-    } catch(error) {
-        throw error;
+        const res = await axiosInstance.post(`/users/changePass`, { email, password });
+        return res.data;
+    } catch (err) {
+        throw new Error(`Password change failed: ${err}`);
     }
 }

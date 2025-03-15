@@ -28,8 +28,8 @@
  */
 
 import { Divider } from "@mantine/core"
-import { SearchBar } from "../Components/FindTalent/SearchBar"
 import { Jobs } from "../Components/FindJobs/Jobs"
+import { SearchBar } from "../Components/FindJobs/SearchBar"
 
 export const FindJobs = () => {
     return (

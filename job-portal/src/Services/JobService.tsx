@@ -1,9 +1,4 @@
-import axios from "axios";
-
-/**
- * Base URL for job-related API endpoints
- */
-const base_url = "http://localhost:8080/api/v1/jobs/"
+import axiosInstance from "../Interceptor/AxiosInterceptor";
 
 /**
  * Creates a new job posting
@@ -34,7 +29,7 @@ const base_url = "http://localhost:8080/api/v1/jobs/"
  */
 export const postJob = async (job:any) => {
     try {
-        const res = await axios.post(`${base_url}post`,job);
+        const res = await axiosInstance.post(`/jobs/post`,job);
         return res.data;
     } catch (error) {
         throw error;
@@ -61,7 +56,7 @@ export const postJob = async (job:any) => {
  */
 export const getAllJobs = async()=>{
     try {
-        const res = await axios.get(`${base_url}getAll`);
+        const res = await axiosInstance.get(`/jobs/getAll`);
         return res.data;
     } catch (error) {
         throw error;
@@ -87,7 +82,7 @@ export const getAllJobs = async()=>{
  */
 export const getJob =async(id:any)=>{
     try {
-        const res = await axios.get(`${base_url}get/${id}`);
+        const res = await axiosInstance.get(`/jobs/get/${id}`);
         return res.data;
     } catch (error) {
         throw error;
@@ -120,7 +115,7 @@ export const getJob =async(id:any)=>{
  */
 export const applyJob = async(id:any, applicant:any)=>{
     try {
-        const res = await axios.post(`${base_url}apply/${id}`,applicant)
+        const res = await axiosInstance.post(`/jobs/apply/${id}`,applicant)
         return res;
     } catch (error) {
         throw error;
@@ -146,7 +141,7 @@ export const applyJob = async(id:any, applicant:any)=>{
  */
 export const getJobPostedBy =async(id:any)=>{
     try {
-        const res = await axios.get(`${base_url}postedBy/${id}`);
+        const res = await axiosInstance.get(`/jobs/postedBy/${id}`);
         return res.data;
     } catch (error) {
         throw error;
@@ -176,7 +171,7 @@ export const getJobPostedBy =async(id:any)=>{
  */
 export const changeAppStatus = async(application:any)=>{
     try{
-        const res = await axios.post(`${base_url}changeStatus`,application)
+        const res = await axiosInstance.post(`/jobs/changeAppStatus`,application)
         return res;
     }catch(error){
         throw(error)

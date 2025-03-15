@@ -1,9 +1,4 @@
-import axios from "axios";
-
-/**
- * Base URL for profile-related API endpoints
- */
-const base_url = "http://localhost:8080/api/v1/profiles/"
+import axiosInstance from "../Interceptor/AxiosInterceptor";
 
 /**
  * Retrieves a user profile by ID from the backend
@@ -33,13 +28,14 @@ const base_url = "http://localhost:8080/api/v1/profiles/"
  *   console.error("Failed to get profile:", error);
  * }
  */
-export const getProfile = async (id: number) => {
-    try {
-        const res = await axios.get(`${base_url}get/${id}`);
-        return res.data;
-    } catch (error) {
-        throw error;
-    }
+export const getProfile = async (id: any) => {
+    return axiosInstance.get(`/profiles/get/${id}`)
+        .then((res) => {
+            return res.data
+        })
+        .catch((err) => {
+            throw err
+        })
 };
 
 /**
@@ -71,9 +67,34 @@ export const getProfile = async (id: number) => {
  */
 export const updateProfile = async (profile: any) => {
     try {
-        const res = await axios.put(`${base_url}update`, profile);
+        const res = await axiosInstance.put(`/profiles/update`, profile);
         return res.data;
-    } catch (error) {
-        throw error;
+    } catch (err) {
+        throw new Error(`Failed to update profile: ${err}`);
     }
 };
+
+/**
+ * Retrieves all user profiles from the backend
+ * 
+ * Makes a GET request to fetch all profiles from the backend
+ * 
+ * @returns {Promise<Object[]>} Array of profile objects
+ * @throws {Error} If profile retrieval fails
+ * 
+ * @example
+ * try {
+ *   const profiles = await getAllProfiles();
+ *   // Use profiles data
+ * } catch (error) {    
+ *   console.error("Failed to get all profiles:", error);
+ * }
+ */
+export const getAllProfiles = async () => {
+    try {
+        const res = await axiosInstance.get(`/profiles/getAll`);
+        return res.data;
+    } catch (err) {
+        throw new Error(`Failed to retrieve all profiles: ${err}`);
+    }
+}

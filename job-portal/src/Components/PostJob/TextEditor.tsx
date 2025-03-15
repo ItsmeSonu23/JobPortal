@@ -6,7 +6,7 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
-
+import { useEffect } from 'react';
 /**
  * TextEditor Component
  * 
@@ -64,6 +64,11 @@ import SubScript from '@tiptap/extension-subscript';
  * @returns {JSX.Element} A rich text editor with toolbar and content area
  */
 export const TextEditor = (props: any) => {
+  
+  useEffect(()=>{
+   editor?.commands.setContent(props.data)
+  },[props.data])
+
   const editor = useEditor({
     extensions: [
       StarterKit,

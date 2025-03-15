@@ -78,7 +78,7 @@ export const PostedJobPage = () => {
         getJobPostedBy(user?.id)
             .then((data) => {
                 setJobList(data)
-                if(data && data.length > 0 && Number(id) > 0){
+                if(data && data.length > 0 && (!id || Number(id) <= 0)){
                     navigate(`/posted-job/${data[0].id}`)
                 }
                 // Find and set the selected job based on URL param

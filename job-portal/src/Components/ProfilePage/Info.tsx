@@ -1,4 +1,4 @@
-import { ActionIcon } from "@mantine/core"
+import { ActionIcon, NumberInput } from "@mantine/core"
 import { IconPencil, IconBriefcase, IconMapPin, IconCheck, IconX } from "@tabler/icons-react"
 import { profileFeild } from "../../Data/Data"
 import { SelectInputt } from "./SelectInputt"
@@ -71,7 +71,7 @@ export const Info = () => {
     const handleEdit = () => {
         if (!edit) {
             setEdit(true)
-            form.setValues({ jobTitle: profile.jobTitle, company: profile.company, location: profile.location })
+            form.setValues({ jobTitle: profile.jobTitle, company: profile.company, location: profile.location ,totalExp: profile.totalExp})
         } else {
             setEdit(false)
         }
@@ -79,7 +79,7 @@ export const Info = () => {
 
     const form = useForm({
         mode: 'controlled',
-        initialValues: { jobTitle: '', company: '', location: '' }
+        initialValues: { jobTitle: '', company: '', location: '', totalExp: 0 }
     });
 
     /**
@@ -98,7 +98,7 @@ export const Info = () => {
                 <div>{edit && <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={"lg"}>
                     <IconCheck className="h-4/5 w-4/5" />
                 </ActionIcon>}
-                    <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit?"red.8":"darkorchid"} size={"lg"}>
+                    <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={"lg"}>
                         {
                             edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />
                         }
@@ -110,10 +110,16 @@ export const Info = () => {
                     <SelectInputt form={form} name="jobTitle" {...profileFeild[0]} />
                     <SelectInputt form={form} name="company" {...profileFeild[1]} />
                 </div>
-                    <SelectInputt form={form} name="location" {...profileFeild[2]} /></> : <>
+                    <div className="flex gap-10 [&>*]:w-1/2">
+                        <SelectInputt form={form} name="location" {...profileFeild[2]} />
+                        <NumberInput withAsterisk hideControls min={0} max={50} label="Experience" {...form.getInputProps("totalExp")} name="totalExp"  />
+                    </div></> : <>
                     <div className="text-xl flex gap-1 items-center"><IconBriefcase className="h-5 w-5" stroke={1.5} />{profile.jobTitle} &bull; {profile.company}</div>
                     <div className="text-lg flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
                         <IconMapPin className="h-5 w-5" stroke={1.5} />{profile.location}
+                    </div>
+                    <div className="text-lg flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
+                        <IconBriefcase className="h-5 w-5" stroke={1.5} />Experience: {profile.totalExp} Years
                     </div>
                 </>
             }

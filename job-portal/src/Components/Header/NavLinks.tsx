@@ -25,11 +25,11 @@ export const NavLinks = () => {
                 Find Talent
             </NavLink>
             {/* Link to job posting page */}
-            <NavLink to={"/post-job"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
+            <NavLink to={"/post-job/0"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
                 Post Job
             </NavLink>
             {/* Link to view posted jobs */}
-            <NavLink to={"/posted-job"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
+            <NavLink to={`/posted-job/0`} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
                 Posted Jobs
             </NavLink>
             {/* Link to job history page */}

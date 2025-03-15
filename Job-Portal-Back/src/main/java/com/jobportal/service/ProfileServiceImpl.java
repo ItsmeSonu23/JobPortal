@@ -12,6 +12,9 @@ import com.jobportal.entity.Profile;
 import com.jobportal.exception.JobPortalException;
 import com.jobportal.repo.ProfileRepo;
 import com.jobportal.utility.Utilities;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 /**
  * Implementation of the ProfileService interface that provides profile management functionality.
@@ -79,6 +82,18 @@ public class ProfileServiceImpl implements ProfileService {
         profileRepo.save(modelMapper.map(profileDto, Profile.class));
         // Convert the Profile entity to ProfileDto using ModelMapper
         return profileDto;
-    }
+        }
 
+    /**
+     * Retrieves all profiles.
+     * Fetches all profiles from the repository and maps them to a list of ProfileDto.
+     *
+     * @return List of ProfileDto containing all profiles
+     * @throws JobPortalException if profiles retrieval fails
+     */
+    @Override
+    public List<ProfileDto> getAllProfile() throws JobPortalException {
+        List<Profile> profiles = profileRepo.findAll();
+        return profiles.stream().map(profile -> modelMapper.map(profile, ProfileDto.class)).collect(Collectors.toList());
+    }
 }

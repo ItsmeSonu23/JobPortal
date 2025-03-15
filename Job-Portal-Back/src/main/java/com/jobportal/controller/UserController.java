@@ -28,9 +28,9 @@ import org.springframework.web.bind.annotation.RequestBody;
  * Handles user registration, authentication, password management and OTP verification.
  */
 @RestController
-@CrossOrigin("*")
+@CrossOrigin // Allow requests from any origin
 @Validated
-@RequestMapping("/api/v1/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired

@@ -2,6 +2,7 @@ package com.jobportal.service;
 
 import com.jobportal.dto.ProfileDto;
 import com.jobportal.exception.JobPortalException;
+import java.util.List;
 
 /**
  * Service interface defining profile management operations.
@@ -25,7 +26,15 @@ public interface ProfileService {
      * @return ProfileDto containing the profile information
      * @throws JobPortalException if profile not found
      */
-    public ProfileDto getProfile(Long id) throws JobPortalException;
+        public ProfileDto getProfile(Long id) throws JobPortalException;
+
+    /**
+     * Retrieves all profiles.
+     *
+     * @return List of ProfileDto containing all profiles
+     * @throws JobPortalException if profiles retrieval fails
+     */
+    public List<ProfileDto> getAllProfile() throws JobPortalException;
 
     /**
      * Updates an existing profile with new information.

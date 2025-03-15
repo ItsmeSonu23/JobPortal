@@ -1,3 +1,5 @@
+import { formatDate } from "../../Services/Utilities"
+
 /**
  * Certification component displays a single certification entry with issuer logo, name, and details
  * 
@@ -16,12 +18,12 @@ export const Certification = (props:any) => {
                 <img className="h-7" src={`/Icons/${props.issuer}.png`} alt="" />
             </div>
             <div className="flex flex-col">
-                <div className="font-semibold">{props.name}</div>
+                <div className="font-semibold">{props.title}</div>
                 <div className="text-sm text-[(--color-mine-shaft-300)]">{props.issuer}</div>
             </div>
         </div>
         <div className="flex items-end flex-col">
-            <div className="text-sm text-[(--color-mine-shaft-300)]">{props.issueDate}</div>
+            <div className="text-sm text-[(--color-mine-shaft-300)]">{formatDate(props.issueDate)}</div>
             <div className="text-sm text-[(--color-mine-shaft-300)]">{props.certificateId}</div>
         </div>
     </div>

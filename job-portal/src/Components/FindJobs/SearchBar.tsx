@@ -2,7 +2,8 @@ import { Divider, RangeSlider } from "@mantine/core"
 import { MultiInput } from "./MultiInput"
 import { useState } from "react";
 import { dropdownData } from "../../Data/Data";
-
+import { updateFilter } from "../../Slices/FilterSlice";
+import { useDispatch } from "react-redux";
 /**
  * SearchBar Component
  * 
@@ -49,7 +50,11 @@ import { dropdownData } from "../../Data/Data";
  * @returns {JSX.Element} A search filter bar with multiple filter options
  */
 export const SearchBar = () => {
-    const [value, setValue] = useState<[number, number]>([0, 100]);
+    const dispatch = useDispatch()
+    const [value, setValue] = useState<[number, number]>([0, 300]);
+    const handleChange = (event: any) => {
+        dispatch(updateFilter({ salary: event }))
+    }
     return (
         <div className="flex px-6 py-8">
             {
@@ -65,7 +70,7 @@ export const SearchBar = () => {
                     <div className="text-sm">Salary</div>
                     <div className="text-xs">&#8377;{value[0]} LPA - &#8377;{value[1]} LPA</div>
                 </div>
-                <RangeSlider color="darkorchid" size="xs" value={value} labelTransitionProps={{
+                <RangeSlider onChangeEnd={handleChange} color="darkorchid" size="xs" value={value} labelTransitionProps={{
                     transition: 'skew-down',
                     duration: 150,
                     timingFunction: 'linear',

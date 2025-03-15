@@ -28,9 +28,9 @@ import jakarta.validation.Valid;
  * Handles job creation, retrieval, applications and status updates.
  */
 @RestController
-@CrossOrigin
+@CrossOrigin // Allow requests from any origin
 @Validated
-@RequestMapping("/api/v1/jobs")
+@RequestMapping("/jobs")
 public class JobController {
     @Autowired
     private JobService jobService;
@@ -81,7 +81,7 @@ public class JobController {
     @PostMapping("/apply/{id}")
     public ResponseEntity<ResponseDto> applyJob(@RequestBody @Valid ApplicantDto applicantDto ,@PathVariable Long id) throws JobPortalException{
         jobService.applyJob(id,applicantDto);
-        return new ResponseEntity<>(new ResponseDto("Applied Successfullly"),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDto("Applied Successfully"),HttpStatus.OK);
     }
 
     /**
@@ -103,10 +103,10 @@ public class JobController {
      * @return ResponseEntity containing success message
      * @throws JobPortalException if status update fails
      */
-    @PostMapping("/changeAppStatus/{id}")
+    @PostMapping("/changeAppStatus")
     public ResponseEntity<ResponseDto> changeAppStatus(@RequestBody @Valid Application applicantion) throws JobPortalException{
         jobService.changeAppStatus(applicantion);
-        return new ResponseEntity<>(new ResponseDto("Application Status change successfully"),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDto("Application Status changed successfully"),HttpStatus.OK);
     }
 
 }
