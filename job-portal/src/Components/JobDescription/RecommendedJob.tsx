@@ -62,7 +62,7 @@ export const RecommendedJob = () => {
 
     return <div className="">
         <div className="text-xl font-semibold mb-5">Recommended Talent</div>
-        <div className="flex flex-col flex-wrap gap-5">
+        <div className="flex bs:flex-col flex-wrap gap-5">
             {jobList?.map((talent: any, index: number) => 
                 index < 7 && id != talent.id && <JobCart key={index} {...talent} />
             )}

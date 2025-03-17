@@ -108,16 +108,16 @@ export const ApplicationForm = () => {
     return (<>
         {/* Loading overlay shown during form submission */}
         <LoadingOverlay className="!fixed " visible={submit} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} loaderProps={{ color: "darkorchid", type: "dots" }} />
-        <div className="text-xl font-semibold mb-5">Submit your Application</div>
+        <div className="text-xl font-semibold mb-5 max-xssm:text-lg">Submit your Application</div>
         {/* Main form container */}
         <div className="flex flex-col gap-5">
             {/* Name and Email row */}
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 max-mdsm:gap-5 [&>*]:w-1/2 max-smsm:[&>*]:!w-full max-smsm:flex-wrap">
                 <TextInput {...form.getInputProps("name")} readOnly={preview} variant={preview ? "unstyled" : "default"} className={`${preview ? "text-[(--color-mine-shaft-300)] font-semibold" : ""}`} label="Full-Name" withAsterisk placeholder="Enter your name" />
                 <TextInput {...form.getInputProps("email")} readOnly={preview} variant={preview ? "unstyled" : "default"} className={`${preview ? "text-[(--color-mine-shaft-300)] font-semibold" : ""}`} label="Email" withAsterisk placeholder="Enter your email" />
             </div>
             {/* Phone and Website row */}
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 max-mdsm:gap-5 [&>*]:w-1/2 max-smsm:[&>*]:!w-full max-smsm:flex-wrap">
                 <NumberInput {...form.getInputProps("phone")} readOnly={preview} variant={preview ? "unstyled" : "default"} className={`${preview ? "text-[(--color-mine-shaft-300)] font-semibold" : ""}`} label="Phone Number" hideControls withAsterisk clampBehavior="strict" placeholder="Enter your phone number" />
                 <TextInput {...form.getInputProps("website")} readOnly={preview} variant={preview ? "unstyled" : "default"} className={`${preview ? "text-[(--color-mine-shaft-300)] font-semibold" : ""}`} label="Portfolio" withAsterisk placeholder="Enter your url" />
             </div>

@@ -27,7 +27,7 @@ import { timeAgo } from "../../Services/Utilities";
 export const ApplyJobCom = (props:any) => {
     
     return (
-        <div className="w-2/3 mx-auto">
+        <div className="w-2/3 max-bssm:w-4/5 max-smsm:w-full mx-auto">
             <div className="flex justify-between">
                 <div className="flex gap-2 items-center">
                     <div className="p-3 bg-[var(--color-mine-shaft-800)] rounded-xl">
@@ -38,8 +38,7 @@ export const ApplyJobCom = (props:any) => {
                         {/* Job title displayed prominently */}
                         <div className="font-semibold text-2xl">{props.jobTitle}</div>
                         {/* Company name, posting time, and applicant count */}
-                        <div className="text-lg text-[(--color-mine-shaft-300)]">
-                            {props.company} &bull; {timeAgo(props.postTime)} &#x2022; {props.applicants ? props.applicants.length : 0}
+                        <div className="text-lg flex text-[(--color-mine-shaft-300)] flex-wrap max-xsmm:text-sm"><span>&bull; {props.company}</span><span>&bull; {timeAgo(props.postTime)}</span> <span>&#x2022; {props.applicant ? props.applicant.length : 0} Applicants</span>
                         </div>
                     </div>
                 </div>

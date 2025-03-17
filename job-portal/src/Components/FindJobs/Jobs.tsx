@@ -97,12 +97,12 @@ export const Jobs = () => {
         setFilteredJobs(filteredJobs) // Updating the state with the filtered job list
     }, [filter, jobList]) // This effect runs when filter or jobList changes
 
-    return <div className="p-7"> {/* Main container with padding */}
-        <div className="flex justify-between"> {/* Flex container for header */}
-            <div className="text-2xl font-semibold">Recommended Jobs</div> {/* Heading for the job listings */}
+    return <div className="p-4"> {/* Main container with padding */}
+        <div className="flex justify-between items-center flex-wrap"> {/* Flex container for header */}
+            <div className="text-2xl font-semibold max-xssm:text-xl ">Recommended Jobs</div> {/* Heading for the job listings */}
             <Sort sort="job" /> {/* Including the Sort component for sorting options */}
         </div>
-        <div className="mt-10 mx-5 flex flex-wrap gap-10"> {/* Container for job listings with margin and gap */}
+        <div className="mt-10 mx-3 flex flex-wrap gap-5 w-full"> {/* Container for job listings with margin and gap */}
             {
                 filteredJobs.length ? filteredJobs.map((job: any, index: any) => <JobCart key={index} {...job} />) : <div className="text-center text-2xl font-semibold">No Jobs Found</div> // Mapping through filtered jobs or displaying a message if none found
             }

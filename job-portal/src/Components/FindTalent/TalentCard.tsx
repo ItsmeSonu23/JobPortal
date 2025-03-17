@@ -110,7 +110,7 @@ export const TalentCard = (props: any) => {
         })
     }
 
-    return <div className="p-4 rounded-xl bg-[var(--color-mine-shaft-900)] hover:shadow-[0_0_5px_1px_darkorchid] !shadow-[var(--color-electric-violet-500)] transition duration-300 ease-in-out w-96 flex flex-col gap-3">
+    return <div className="p-4 rounded-xl bg-[var(--color-mine-shaft-900)] hover:shadow-[0_0_5px_1px_darkorchid] !shadow-[var(--color-electric-violet-500)] transition duration-300 ease-in-out w-96 max-bssm:w-[45%] max-mdsm:w-full max-lgsm:w-[45%] flex flex-col gap-3">
         <div className="flex justify-between">
             <div className="flex gap-2 items-center">
                 <div className="p-2 bg-[var(--color-mine-shaft-800)] rounded-full">
@@ -123,9 +123,9 @@ export const TalentCard = (props: any) => {
             </div>
             <IconHeart className="cursor-pointer text-[var(--color-mine-shaft-300)]" />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2  flex-wrap">
             {
-                profile?.skills?.length > 0 ? profile.skills.map((skill: any, index: any) => index < 4 && <div key={index} className="p-2, py-1, bg-[var(--color-mine-shaft-800)] rounded-lg text-xs text-[var(--color-electric-violet-500)]">
+                profile?.skills?.length > 0 ? profile.skills.map((skill: any, index: any) => index < 4 && <div key={index} className="p-2 py-1 bg-[var(--color-mine-shaft-800)] rounded-lg text-xs text-[var(--color-electric-violet-500)]">
                     {skill}
                 </div>) : <div className="text-xs text-[var(--color-mine-shaft-300)]">No skills available</div>
             }
@@ -138,7 +138,7 @@ export const TalentCard = (props: any) => {
             props.invited ? <div className="flex gap-1 text-sm text-[var(--color-mine-shaft-300)] items-center">
                 <IconCalendarMonth stroke={1.5} /> Interview :  {formatInterviewTime(props.interviewTime)}
             </div> :
-                <div className="flex justify-between">
+                <div className="flex justify-between ">
                     <div className="font-semibold text-[var(--color-mine-shaft-300)]">
                         Exp: {props.totalExp?props.totalExp+" years":"Fresher"}
                     </div>

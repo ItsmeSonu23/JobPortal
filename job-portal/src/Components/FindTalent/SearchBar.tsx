@@ -1,4 +1,4 @@
-import { Divider, Input, RangeSlider } from "@mantine/core"
+import { Collapse, Divider, Input, RangeSlider, Button } from "@mantine/core"
 import { searchFeilds } from "../../Data/Data"
 import { MultiInput } from '../FindJobs/MultiInput'
 import { useState } from "react";
@@ -6,6 +6,8 @@ import { IconUserCircle } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";
 import { updateFilter } from "../../Slices/FilterSlice";
 import React from "react";
+import { useMediaQuery } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 /**
  * SearchBar Component for Finding Talent
  * 
@@ -56,6 +58,8 @@ import React from "react";
  * @returns {JSX.Element} A search filter bar for finding talent
  */
 export const SearchBar = () => {
+    const matches = useMediaQuery("(max-width: 475px)")
+    const [opened, { toggle }] = useDisclosure(false)
     const dispatch = useDispatch()
     const [value, setValue] = useState<[number, number]>([0, 50]);
     const [name, setName] = useState("")
@@ -68,33 +72,42 @@ export const SearchBar = () => {
         }
     }
     return (
-        <div className="flex px-6 py-8 items-center !text-[var(--color-mine-shaft-100)] ">
-            <div className="flex items-center">
-                <div className="text-[var(--color-electric-violet-500)] bg-[var(--color-mine-shaft-900)] rounded-full p-2 mr-2"><IconUserCircle size={20} /></div>
-                <Input value={name} onChange={(e: any) => handleChange("name", e)} className="placeholder-[var(--color-mine-shaft-100)]" variant="unstyled" placeholder="Talent Name" />
+        <div className="">
+            <div className="flex justify-end">
+                {matches && <Button onClick={toggle} my={"sm"} radius={"md"} variant="outline" color="darkorchid" >{opened ? "Close" : " Filters"}</Button>}
             </div>
-            {
-                searchFeilds.map((item, index) => {
-                    return <React.Fragment key={index}>
-                        <div className="w-1/5">
-                            <MultiInput {...item} />
-                            <Divider mr="xs" size="sm" orientation="vertical" />
+            <Collapse in={!(opened && matches)}>
+                <div className="flex px-6 py-8 max-lgsm:!flex-wrap items-center ">
+                    <div className="flex items-center w-1/5 max-lgsm:w-1/4 max-bssm:w-1/2 max-smsm:w-1/2 max-xssm:w-full max-xssm:mb-1">
+                        <div className="text-[var(--color-electric-violet-500)] bg-[var(--color-mine-shaft-900)] rounded-full p-2 mr-2"><IconUserCircle size={20} /></div>
+                        <Input value={name} onChange={(e: any) => handleChange("name", e)} className="placeholder-[var(--color-mine-shaft-100)]" variant="unstyled" placeholder="Talent Name" />
+                    </div>
+                        {
+
+                            searchFeilds.map((item, index) => {
+                                return <React.Fragment key={index}>
+                                    <div className="w-1/5 max-lgsm:w-1/4 max-bssm:w-[30%] max-smsm:w-1/2 max-xsmm:w-full">
+                                        <MultiInput {...item} />
+                                        <Divider className="max-smsm:hidden" mr="xs" size="sm" orientation="vertical" />
+                                    </div>
+                                </React.Fragment>
+                            }
+                            )
+
+                        }
+                    <div className="w-1/5 max-lgsm:w-1/4 max-lgsm:mt-5 max-bssm:w-[30%] [&_.mantine-Slider-label]:!translate-y-10 max-smsm:w-1/2 max-xsmm:w-full max-xsmm:mb-1">
+                        <div className="flex justify-between">
+                            <div className="text-sm">Expiriences (Years)</div>
+                            <div className="text-xs">{value[0]} Years - {value[1]} Years</div>
                         </div>
-                    </React.Fragment>
-                }
-                )
-            }
-            <div className="w-1/5 [&_.mantine-Slider-label]:!translate-y-10">
-                <div className="flex justify-between">
-                    <div className="text-sm">Expiriences (Years)</div>
-                    <div className="text-xs">{value[0]} Years - {value[1]} Years</div>
+                        <RangeSlider minRange={1} color="darkorchid" size="xs" value={value} labelTransitionProps={{
+                            transition: 'skew-down',
+                            duration: 150,
+                            timingFunction: 'linear',
+                        }} onChange={setValue} max={50} min={0} onChangeEnd={(e) => handleChange("exp", e)} />
+                    </div>
                 </div>
-                <RangeSlider minRange={1} color="darkorchid" size="xs" value={value} labelTransitionProps={{
-                    transition: 'skew-down',
-                    duration: 150,
-                    timingFunction: 'linear',
-                }} onChange={setValue} max={50} min={0} onChangeEnd={(e) => handleChange("exp", e)} />
-            </div>
+            </Collapse>
         </div>
     )
 }

@@ -76,17 +76,17 @@ export const PostedJobDesc = (props: any) => {
         handleTab("overview")
     },[props])
 
-    return <div className="mt-5 w-3/4 px-5">
+    return <div className="mt-5 w-3/4 max-mdsm:w-full px-5 max-mdsm:px-0">
         {
             props.jobTitle ? (
                 <>
-                    <div className="text-2xl font-semibold flex items-center">
+                    <div className="text-2xl max-xssm:text-xl font-semibold flex items-center">
                         {props.jobTitle} <Badge variant="light" ml="sm" size="sm" color="darkorchid">{props.jobStatus}</Badge>
                     </div>
-                    {props.location && <div className="font-medium text-[var(--color-mine-shaft-300)] mb-5">{props.location}</div>}
+                    {props.location && <div className="font-medium text-[var(--color-mine-shaft-300)] mb-5 max-xssm:text-sm">{props.location}</div>}
                     <div className="">
                         <Tabs variant="outline" radius="lg" value={tab} onChange={handleTab}>
-                            <Tabs.List className="[&_button]:!text-lg mb-5 font-semibold [&_button[data-active='true']]:!text-[var(--color-electric-violet-500)]">
+                            <Tabs.List className="[&_button]:!text-lg mb-5 font-semibold [&_button[data-active='true']]:!text-[var(--color-electric-violet-500)] max-smsm:[&_button]:!text-lg max-xssm:[&_button]:!text-base max-xssm:[&_button]:!px-1.5 max-xssm:[&_button]:!font-medium max-xssm:[&_button]:!py-1.5 max-xsmm:[&_button]:!text-sm">
                                 <Tabs.Tab value="overview">Overview</Tabs.Tab>
                                 <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
                                 <Tabs.Tab value="invited">Invited</Tabs.Tab>

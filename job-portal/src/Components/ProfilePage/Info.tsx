@@ -7,6 +7,7 @@ import { useForm } from '@mantine/form';
 import { useDispatch, useSelector } from "react-redux"
 import { changeProfile } from "../../Slices/ProfileSlice"
 import { successNotification } from "../../Services/NotificationService"
+import { useMediaQuery } from "@mantine/hooks"
 
 /**
  * Info Component
@@ -60,6 +61,7 @@ import { successNotification } from "../../Services/NotificationService"
  * @returns {JSX.Element} A profile information display/edit interface
  */
 export const Info = () => {
+    const matches = useMediaQuery(`(min-width: 475px)`)
     const dispatch = useDispatch()
     const [edit, setEdit] = useState(false)
     const user = useSelector((state: any) => state.user)
@@ -94,11 +96,11 @@ export const Info = () => {
 
     return (
         <>
-            <div className="text-3xl font-semibold flex justify-between">{user.name}
-                <div>{edit && <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={"lg"}>
+            <div className="text-3xl max-xssm:text-2xl max-xsmm:text-xl font-semibold flex justify-between">{user.name}
+                <div>{edit && <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={matches ? "lg" : "md"}>
                     <IconCheck className="h-4/5 w-4/5" />
                 </ActionIcon>}
-                    <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={"lg"}>
+                    <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={matches ? "lg" : "md"}>
                         {
                             edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />
                         }
@@ -106,19 +108,19 @@ export const Info = () => {
                 </div>
             </div>
             {
-                edit ? <> <div className="flex gap-10 [&>*]:w-1/2">
+                edit ? <> <div className="flex gap-10 max-mdsm:gap-5 [&>*]:w-1/2 max-xssm:[&>*]:w-full max-xssm:flex-wrap my-3">
                     <SelectInputt form={form} name="jobTitle" {...profileFeild[0]} />
                     <SelectInputt form={form} name="company" {...profileFeild[1]} />
                 </div>
-                    <div className="flex gap-10 [&>*]:w-1/2">
+                    <div className="flex gap-10 max-mdsm:gap-5 [&>*]:w-1/2 max-xssm:[&>*]:w-full max-xssm:flex-wrap my-3">
                         <SelectInputt form={form} name="location" {...profileFeild[2]} />
                         <NumberInput withAsterisk hideControls min={0} max={50} label="Experience" {...form.getInputProps("totalExp")} name="totalExp"  />
                     </div></> : <>
-                    <div className="text-xl flex gap-1 items-center"><IconBriefcase className="h-5 w-5" stroke={1.5} />{profile.jobTitle} &bull; {profile.company}</div>
-                    <div className="text-lg flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
+                    <div className="text-xl max-xssm:text-base  flex gap-1 items-center"><IconBriefcase className="h-5 w-5" stroke={1.5} />{profile.jobTitle} &bull; {profile.company}</div>
+                    <div className="text-lg max-xssm:text-sm flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
                         <IconMapPin className="h-5 w-5" stroke={1.5} />{profile.location}
                     </div>
-                    <div className="text-lg flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
+                    <div className="text-lg max-xssm:text-sm flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
                         <IconBriefcase className="h-5 w-5" stroke={1.5} />Experience: {profile.totalExp} Years
                     </div>
                 </>

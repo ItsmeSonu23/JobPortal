@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core"
+import { Burger, Button, Drawer } from "@mantine/core"
 import { TbCloverFilled } from "react-icons/tb"
 import { NavLinks } from "./NavLinks"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
@@ -11,6 +11,8 @@ import { NotiMenu } from "./NotiMenu"
 import { jwtDecode } from "jwt-decode"
 import { setUser } from "../../Slices/UserSlice"
 import { setupResponseInterceptor } from "../../Interceptor/AxiosInterceptor"
+import { useDisclosure } from "@mantine/hooks"
+import { IconX } from "@tabler/icons-react"
 /**
  * Header Component
  * 
@@ -37,6 +39,7 @@ export const Header = () => {
     const user = useSelector((state: any) => state.user)
     const token = useSelector((state: any) => state.jwt)
     const dispatch = useDispatch()
+    const [opened, { open, close }] = useDisclosure(false)
 
     useEffect(() => {
         setupResponseInterceptor(navigate);
@@ -69,7 +72,7 @@ export const Header = () => {
             {/* Logo and branding section */}
             <div className="flex gap-3 items-center text-[var(--color-electric-violet-500)]" onClick={() => navigate("/")}>
                 <TbCloverFilled className="text-5xl" />
-                <div className="text-3xl font-semibold">
+                <div className="max-xssm:hidden text-3xl font-semibold">
                     Clover
                 </div>
             </div>
@@ -91,6 +94,46 @@ export const Header = () => {
                 {
                     user ? <NotiMenu /> : <></>
                 }
+                { }
+                <Burger className="bs:hidden" opened={opened} onClick={open} />
+                <Drawer
+                    size="xs"
+                    opened={opened}
+                    onClose={close}
+                    overlayProps={{ opacity: 0.55, blur: 3 }}
+                    position="right"
+                    closeButtonProps={
+                        {
+                            icon: <IconX size={40} color="white" stroke={2.5} />
+                        }
+                    }
+                >
+                    {
+                        <div className="flex flex-col gap-6 text-xl h-full items-center">
+                            {/* Link to job search page */}
+                            <NavLink to={"/find-jobs"} className={({ isActive }) => isActive ? "flex items-center h-full" : "hover:text-[var(--color-electric-violet-500)]"}>
+                                Find Jobs
+                            </NavLink>
+                            {/* Link to talent search page */}
+                            <NavLink to={"/find-talent"} className={({ isActive }) => isActive ? "flex items-center h-full" : "hover:text-[var(--color-electric-violet-500)]"}>
+                                Find Talent
+                            </NavLink>
+                            {/* Link to job posting page */}
+                            <NavLink to={"/post-job/0"} className={({ isActive }) => isActive ? "flex items-center h-full" : "hover:text-[var(--color-electric-violet-500)]"}>
+                                Post Job
+                            </NavLink>
+                            {/* Link to view posted jobs */}
+                            <NavLink to={`/posted-job/0`} className={({ isActive }) => isActive ? "flex items-center h-full" : "hover:text-[var(--color-electric-violet-500)]"}>
+                                Posted Jobs
+                            </NavLink>
+                            {/* Link to job history page */}
+                            <NavLink to={"/job-history"} className={({ isActive }) => isActive ? "flex items-center h-full" : "hover:text-[var(--color-electric-violet-500)]"}>
+                                Job History
+                            </NavLink>
+                        </div>
+                    }
+                </Drawer>
+
             </div>
         </div>
         : <></>

@@ -123,17 +123,17 @@ export const Login = () => {
     return (
         <>
             <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: "2" }} loaderProps={{ color: "darkorchid", type: "dots" }} />
-            <div className="w-1/2 px-20 flex flex-col justify-center gap-5">
-                <div className="text-5xl font-semibold">Login Your Account</div>
+            <div className="w-1/2 max-smsm:w-full px-20 max-bssm:px-10 max-mdsm:px-5 flex flex-col justify-center gap-5">
+                <div className="text-5xl max-bssm:text-4xl max-mdsm:text-3xl max-smsm:text-2xl font-semibold">Login Your Account</div>
                 <TextInput error={formError.email} name="email" value={data.email} withAsterisk leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />} label="Email" placeholder="Enter your email" onChange={handleChange} />
 
                 <PasswordInput error={formError.password} name="password" value={data.password} withAsterisk leftSection={<IconLock style={{ width: rem(16), height: rem(16) }} stroke={1.5} />} label="Password" placeholder="*********" onChange={handleChange} />
 
                 <Button loading={loading} onClick={handleSubmit} autoContrast variant="filled" color="darkorchid">Login</Button>
                 <div className="mx-auto">
-                    Don't have an account ? <NavLink to={"/signup"} className="text-[var(--color-electric-violet-500)] hover:underline cursor-pointer" onClick={() => { setFormError(form); setData(form) }}>Sign up</NavLink>
+                    Don't have an account ? <NavLink to={"/signup"} className="text-[var(--color-electric-violet-500)] hover:underline cursor-pointer max-xssm:text-sm" onClick={() => { setFormError(form); setData(form) }}>Sign up</NavLink>
                 </div>
-                <div onClick={open} className="text-[var(--color-electric-violet-500)] hover:underline cursor-pointer text-center">Forgot Password?</div>
+                <div onClick={open} className="text-[var(--color-electric-violet-500)] hover:underline cursor-pointer text-center max-xssm:text-sm">Forgot Password?</div>
             </div>
             <ResetPassword opened={opened} close={close} />
         </>

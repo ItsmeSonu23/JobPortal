@@ -82,7 +82,7 @@ export const JobHistory = () => {
             <div className="text-2xl font-semibold mb-5">Job History</div>
             <div className="w-full">
                 <Tabs value={activeTab} onChange={handleTabChange} variant="outline" radius="lg" defaultValue="applied">
-                    <Tabs.List className="[&_button]:!text-lg mb-5 font-semibold [&_button[data-active='true']]:!text-[var(--color-electric-violet-500)]">
+                    <Tabs.List className="[&_button]:!text-lg mb-5 font-semibold [&_button[data-active='true']]:!text-[var(--color-electric-violet-500)] max-smsm:[&_button]:!text-lg max-xssm:[&_button]:!text-base max-xssm:[&_button]:!px-1.5 max-xssm:[&_button]:!font-medium max-xssm:[&_button]:!py-1.5 max-xsmm:[&_button]:!text-sm">
                         <Tabs.Tab value="APPLIED">Applied</Tabs.Tab>
                         <Tabs.Tab value="SAVED">Saved</Tabs.Tab>
                         <Tabs.Tab value="OFFERED">Offered</Tabs.Tab>

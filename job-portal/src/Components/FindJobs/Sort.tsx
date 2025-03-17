@@ -74,7 +74,7 @@ export const Sort = (props: any) => {
                 }}
             >
                 <Combobox.Target>
-                    <div onClick={() => combobox.toggleDropdown()} className="border border-[var(--color-electric-violet-500)] text-sm gap-2 px-2 py-1 rounded-xl flex items-center cursor-pointer">
+                    <div onClick={() => combobox.toggleDropdown()} className="border border-[var(--color-electric-violet-500)] text-sm max-xssm:text-xs gap-2 px-2 max-xssm:px-1 py-1 max-xssm:mt-2 max-xssm:py-0.5 rounded-xl flex items-center cursor-pointer">
                         {selectedItem} <IconAdjustments className='text-[var(--color-electric-violet-500)] h-5 w-5' />
                     </div>
                 </Combobox.Target>

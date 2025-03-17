@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { successNotification } from "../../Services/NotificationService"
 import { changeProfile } from "../../Slices/ProfileSlice"
-
+import { useMediaQuery } from "@mantine/hooks"
 /**
  * About Component
  * 
@@ -47,6 +47,7 @@ import { changeProfile } from "../../Slices/ProfileSlice"
  * @returns {JSX.Element} An editable about section
  */
 export const About = () => {
+    const matches = useMediaQuery(`(min-width: 475px)`)
     const dispatch = useDispatch()
     const [edit, setEdit] = useState(false)
     const [about, setAbout] = useState("")
@@ -80,11 +81,11 @@ export const About = () => {
                 About
                 <div>
                     {edit && 
-                        <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={"lg"}>
+                        <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={matches ? "lg" : "md"}>
                             <IconCheck className="h-4/5 w-4/5" />
                         </ActionIcon>
                     }
-                    <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={"lg"}>
+                    <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={matches ? "lg" : "md"}>
                         {edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />}
                     </ActionIcon>
                 </div>

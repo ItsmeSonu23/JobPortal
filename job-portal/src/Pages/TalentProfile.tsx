@@ -65,11 +65,9 @@ export const TalentProfile = () => {
             console.log(err)
         })
     }, [])           
-    return <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-10 py-4">
+    return <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-5 max-xssm:px-2 py-4">
         <Button my={"sm"} leftSection={<IconArrowLeft size={20} />} color="darkorchid" variant="light" onClick={() => navigate(-1)}>Back</Button>
-
-        <Divider size="sm" />
-        <div className="flex gap-10">
+        <div className="flex gap-5 max-lgsm:flex-wrap">
             <Profile />
             <RecommendedTalent talents={talents} />
         </div>

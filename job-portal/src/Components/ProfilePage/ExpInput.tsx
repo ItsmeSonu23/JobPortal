@@ -146,7 +146,7 @@ export const ExpInput = (props: any) => {
 
             <Textarea {...form.getInputProps("description")} withAsterisk label="Summary" autosize minRows={3} placeholder="Enter summary" />
 
-            <div className="flex gap-10 [&>*]:w-1/2">
+            <div className="flex gap-10 max-mdsm:gap-5 [&>*]:w-1/2 max-xssm:[&>*]:w-full max-xssm:flex-wrap my-3">
                 <MonthPickerInput {...form.getInputProps("startDate")} withAsterisk maxDate={form.getValues().endDate || undefined} label="Start Date" placeholder="Pick Date" />
 
                 <MonthPickerInput {...form.getInputProps("endDate")} disabled={form.getValues().working} withAsterisk minDate={form.getValues().startDate || undefined} maxDate={new Date()} label="End Date" placeholder="Pick Date" />
@@ -154,7 +154,7 @@ export const ExpInput = (props: any) => {
 
             <Checkbox checked={form.getValues().working} onChange={(event) => form.setFieldValue("working", event.currentTarget.checked)} autoContrast label="Currently working here" />
 
-            <div className="flex gap-5">
+            <div className="flex gap-5 max-xssm:!w-full">
                 <Button onClick={handleSave} color="green.8" variant="light">Save</Button>
                 <Button onClick={()=> props.setEdit(false)} color="red.5" variant="light">Discard</Button>
             </div>

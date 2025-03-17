@@ -1,4 +1,5 @@
 import { Button, TextInput } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 
 /**
  * Subscribe Component
@@ -41,16 +42,18 @@ import { Button, TextInput } from "@mantine/core"
  * @returns {JSX.Element} A newsletter subscription section
  */
 export const Subscribe = () => {
-    return <div className="mt-20 flex items-center bg-[var(--color-mine-shaft-900)] mx-20 py-3 rounded-xl justify-around">
-        <div className="text-4xl w-2/5 text-center font-semibold  text-[var(--color-mine-shaft-100)]">Never Wants to Miss Any  <span className="text-[var(--color-electric-violet-500)]">Job News?</span></div>
-        <div className="flex gap-4 rounded-xl bg-[var(--color-mine-shaft-700)] px-3 py-2 items-center">
+    const matches = useMediaQuery('(max-width: 639px)');
+    const matches1 = useMediaQuery('(max-width: 475px)');
+    return <div className="mt-20 flex items-center bg-[var(--color-mine-shaft-900)] mx-20 max-smsm:mx-5 py-3 rounded-xl justify-around flex-wrap px-5">
+        <div className="text-4xl max-mdsm:text-3xl max-xssm:text-2xl max-smsm:text-3xl  w-2/5 max-bssm:w-4/5 text-center font-semibold  text-[var(--color-mine-shaft-100)]">Never Wants to Miss Any  <span className="text-[var(--color-electric-violet-500)] ">Job News?</span></div>
+        <div className="flex gap-4 rounded-xl max-xssm:flex-col bg-[var(--color-mine-shaft-700)] px-3 py-2 xs:items-center">
             <TextInput
                 className="[&_input]:text-[var(--color-mine-shaft-900)] font-semibold"
                 variant="unstyled"
                 placeholder="example@gmail.com"
-                size="xl"
+                size={matches1 ? 'sm' : matches ? 'md' : 'xl'}
             />
-            <Button className="!rounded-lg" size="lg" color="darkorchid" variant="filled">Subscribe</Button>
+            <Button className="!rounded-lg " size={matches1 ? 'sm' : matches ? 'md' : 'xl'} color="darkorchid" variant="filled">Subscribe</Button>
         </div>
     </div>
 }

@@ -49,7 +49,7 @@ export const ProfileMenu = () => {
                 <Menu.Target>
                     <div className="flex cursor-pointer items-center gap-2 text-xl">
                         {/* Name of the user */}
-                        <div className="">{user.name}</div>
+                        <div className="max-xssm:hidden">{user.name}</div>
                         {/* Avatar displays user profile picture if available, falls back to default avatar */}
                         <Avatar src={profile.picture?`data:image/jpeg;base64,${profile.picture}`:"/avatar.png" } alt="it's  me" />
                     </div>

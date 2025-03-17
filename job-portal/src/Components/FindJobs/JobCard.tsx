@@ -63,7 +63,7 @@ export const JobCart = (props: any) => {
     }
     
     return (
-        <div className="bg-[var(--color-mine-shaft-900)] p-5 w-80 justify-between flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_darkorchid] !shadow-mine-shaft-600">
+        <div className="bg-[var(--color-mine-shaft-900)] p-5 w-72 justify-between flex flex-col gap-3 rounded-xl hover:shadow-[0_0_5px_1px_darkorchid] !shadow-mine-shaft-600 max-lgsm:w-[45%] max-mdsm:w-[45%] max-bssm:w-[45%] max-smsm:w-full">
             <div className="flex justify-between">
                 <div className="flex gap-2 items-center">
                     <div className="p-2 bg-[var(--color-mine-shaft-800)] rounded-md">
@@ -79,7 +79,7 @@ export const JobCart = (props: any) => {
                         <IconBookmark onClick={handleSaveJob} className="text-[(--color-mine-shaft-300)] cursor-pointer hover:text-[var(--color-electric-violet-500)]" />
                 }
             </div>
-            <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-[var(--color-mine-shaft-800)] [&>div]:text-[var(--color-electric-violet-500)] [&>div]:rounded-lg text-xs">
+            <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-[var(--color-mine-shaft-800)] [&>div]:text-[var(--color-electric-violet-500)] [&>div]:rounded-lg text-xs flex-wrap">
                 <div className="">{props.expirience}</div>
                 <div className="">{props.jobType}</div>
                 <div className="">{props.location}</div>

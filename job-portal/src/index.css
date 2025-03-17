@@ -25,8 +25,28 @@
   --color-electric-violet-900: #572083;
   --color-electric-violet-950: #3b0a61;
 
-
 }
+
+@theme{
+  --breakpoint-xsm: 350px;
+  --breakpoint-xs: 476px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-bs: 899px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  --breakpoint-xsmm: 349px;
+  --breakpoint-xssm: 475px;
+  --breakpoint-smsm: 639px;
+  --breakpoint-mdsm: 767px;
+  --breakpoint-bssm: 899px;
+  --breakpoint-lgsm: 1023px;
+  --breakpoint-xlsm: 1279px;
+  --breakpoint-2xlsm: 1535px;
+}
+
 
 @layer base{
   ol,ul{
@@ -40,3 +60,6 @@
     margin-left: 1em;
   }
 }
+
+
+

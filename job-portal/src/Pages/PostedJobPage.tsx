@@ -1,11 +1,12 @@
-import { Divider } from "@mantine/core"
+import { Button, Divider, Drawer } from "@mantine/core"
 import { PostedJob } from "../Components/PostedJOb/PostedJob"
 import { PostedJobDesc } from "../Components/PostedJOb/PostedJobDesc"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { getJobPostedBy } from "../Services/JobService"
-
+import { useDisclosure } from "@mantine/hooks"
+import { useMediaQuery } from "@mantine/hooks"
 /**
  * Posted Job Page Component
  * 
@@ -65,6 +66,8 @@ import { getJobPostedBy } from "../Services/JobService"
  */
 export const PostedJobPage = () => {
     const { id } = useParams()
+    const matches = useMediaQuery(`(max-width: 769px)`)
+    const [opened, { open, close }] = useDisclosure(false)
     const user = useSelector((state: any) => state.user)
     const [jobList, setJobList] = useState<any[]>([])
     const [job, setJob] = useState<any>({})
@@ -73,31 +76,35 @@ export const PostedJobPage = () => {
     useEffect(() => {
         // Scroll to top when job selection changes
         window.scrollTo(0, 0)
-        
+
         // Fetch jobs posted by current user
         getJobPostedBy(user?.id)
             .then((data) => {
                 setJobList(data)
-                if(data && data.length > 0 && (!id || Number(id) <= 0)){
+                if (data && data.length > 0 && (!id || Number(id) <= 0)) {
                     navigate(`/posted-job/${data[0].id}`)
                 }
                 // Find and set the selected job based on URL param
                 const selectedJob = data.find((item: any) => item.id == id)
                 setJob(selectedJob || {})
-                
+
             })
             .catch((err) => {
                 console.error("Error:", err.message)
             })
-            
-            
+
+
     }, [id, user?.id]) // Added user?.id as dependency
 
     return (
-        <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-10">
+        <div className="min-h-[100vh] bg-[var(--color-mine-shaft-950)] font=['poppins'] px-5 max-mdsm:px-5">
             <Divider size="sm" />
-            <div className="flex gap-10">
+            {matches && <Button my={"xs"} size={matches ? "md" : "sm"} onClick={open}>All Jobs</Button>}
+            <Drawer opened={opened} size="xs" overlayProps={{ opacity: 0.55, blur: 3 }} onClose={close} title="All Jobs">
                 <PostedJob job={job} jobList={jobList} />
+            </Drawer>
+            <div className="flex gap-10 justify-around">
+                {!matches && <PostedJob job={job} jobList={jobList} />}
                 <PostedJobDesc {...job} />
             </div>
         </div>

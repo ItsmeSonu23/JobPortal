@@ -60,18 +60,18 @@ export const Working = () => {
     return (
         <>
             <div className="mt-20 pb-5">
-                <div className="text-4xl text-center font-semibold text-[var(--color-mine-shaft-100)]">How it<span className="text-[var(--color-electric-violet-500)]">Works</span></div>
-                <div className="text-lg mb-10 text-center w-1/2 mx-auto text-[var(--color-mine-shaft-300)]">Effortlessly navigate through the process and land your dream job.</div>
-                <div className="flex px-48 justify-between items-center">
+                <div className="text-4xl  max-mdsm:text-3xl max-xssm:text-2xl max-smsm:text-3xl text-center font-semibold text-[var(--color-mine-shaft-100)]">How it<span className="text-[var(--color-electric-violet-500)]">Works</span></div>
+                <div className="text-lg max-mdsm:text-base max-xssm:text-sm max-smsm:text-base  mb-10 text-center w-1/2 mx-auto text-[var(--color-mine-shaft-300)] max-smsm:w-11/12">Effortlessly navigate through the process and land your dream job.</div>
+                <div className="flex px-48 max-bssm:px-40 max-smsm:px-20 max-xssm:px-10 justify-between items-center  max-mdsm:flex-col">
                     <div className="relative">
-                        <img className="w-[30rem] " src="/Working/girl.png" alt="girl" />
-                        <div className="w-36 flex flex-col absolute top-[15%] right-0 items-center gap-1 border border-[var(--color-electric-violet-500)] rounded-xl p-2 backdrop-blur-md">
-                            <Avatar className="!h-16 !w-16" src="images/avatar-7.png" alt="it's me" />
-                            <div className="text-sm font-semibold text-[var(--color-mine-shaft-200)] text-center">Complete your profile</div>
-                            <div className="text-xs text-[var(--color-mine-shaft-300)]">70% completed</div>
+                        <img className="w-[30rem]" src="/Working/girl.png" alt="girl" />
+                        <div className="w-36 max-mdsm:w-32 max-smsm:w-28 max-xssm:w-24 flex flex-col absolute top-[15%] max-mdsm:top-[20%] max-smsm:top-[25%] max-xssm:top-[30%]  -left-20 max-mdsm:-left-10 max-smsm:-left-5 max-xssm:-left-2 items-center gap-1 border border-[var(--color-electric-violet-500)] rounded-xl p-2 max-mdsm:p-1 max-xssm:p-0.5 backdrop-blur-md">
+                            <Avatar className="!h-16 !w-16 max-mdsm:!h-12 max-mdsm:!w-12 max-smsm:!h-10 max-smsm:!w-10 max-xssm:!h-8 max-xssm:!w-8" src="images/avatar-7.png" alt="it's me" />
+                            <div className="text-sm max-smsm:text-sm max-xssm:text-xs font-semibold text-[var(--color-mine-shaft-200)] text-center">Complete your profile</div>
+                            <div className="text-xs max-smsm:text-xs text-[var(--color-mine-shaft-300)]">70% completed</div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-10">
+                    <div className="flex flex-col gap-10 max-mdsm:w-full max-mdsm:items-center ">
                         {
                             work.map((item, index) => {
                                 return (

@@ -75,7 +75,7 @@ export const PostedJob = (props: any) => {
     const closedJobCount = props.jobList?.filter((job: any) => job?.jobStatus === 'CLOSED').length || 0;
 
     return (
-        <div className="w-1/5 mt-5">
+        <div className="w-1/5 max-mdsm:w-full mt-5">
             <div className="text-2xl font-semibold mb-5">Jobs</div>
             <div className="">
                 {/* Tabbed navigation for job status filtering */}

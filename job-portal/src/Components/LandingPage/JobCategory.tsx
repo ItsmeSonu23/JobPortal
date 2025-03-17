@@ -55,8 +55,8 @@ import { jobCategory } from '../../Data/Data';
 export const JobCategory = () => {
     return (
         <div className="mt-20 pb-5">
-            <div className="text-4xl text-center font-semibold text-[var(--color-mine-shaft-100)]">Browse <span className="text-[var(--color-electric-violet-500)]">Job</span> Categories</div>
-            <div className="text-lg mb-10 text-center w-1/2 mx-auto text-[var(--color-mine-shaft-300)]">Explore diverse job opportunities tailored to your skills . Start your career journey today!</div>
+            <div className="text-4xl max-mdsm:text-3xl max-xssm:text-2xl max-smsm:text-3xl  text-center font-semibold text-[var(--color-mine-shaft-100)]">Browse <span className="text-[var(--color-electric-violet-500)]">Job</span> Categories</div>
+            <div className="text-lg max-mdsm:text-base max-xssm:text-sm max-smsm:text-base mb-10 text-center w-1/2 mx-auto max-smsm:w-11/12 text-[var(--color-mine-shaft-300)]">Explore diverse job opportunities tailored to your skills . Start your career journey today!</div>
             <Carousel slideSize="20%" slideGap="md" loop
                 className='[&_button]:!bg-[var(--color-electric-violet-500)] 
                 [&_button]:!border-none 
@@ -75,9 +75,9 @@ export const JobCategory = () => {
                             <div className="p-2 bg-[var(--color-electric-violet-500)] rounded-full">
                                 <img className="h-8 w-8" src={`Categories/${category.name}.png`} alt={category.name} />
                             </div>
-                            <div className="text-[var(--color-mine-shaft-100)] text-xl font-semibold">{category.name}</div>
-                            <div className="text-[var(--color-mine-shaft-300)] text-sm text-center">{category.desc}</div>
-                            <div className="text-[var(--color-electric-violet-400)] text-lg">{category.jobs}+ new jobs posted</div>
+                            <div className="text-[var(--color-mine-shaft-100)] text-xl max-smsm:text-lg max-xssm:text-base font-semibold">{category.name}</div>
+                            <div className="text-[var(--color-mine-shaft-300)] text-sm max-smsm:text-sm max-xssm:text-base text-center">{category.desc}</div>
+                            <div className="text-[var(--color-electric-violet-400)] text-lg max-smsm:text-lg max-xssm:text-base">{category.jobs}+ new jobs posted</div>
                         </div>
 
                     </Carousel.Slide>)

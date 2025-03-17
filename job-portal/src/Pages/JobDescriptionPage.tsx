@@ -62,7 +62,7 @@ export const JobDescriptionPage = () => {
       <Button leftSection={<IconArrowLeft size={20} />} color="darkorchid" variant="light">Back</Button>
     </NavLink>
 
-    <div className="flex gap-10  justify-around">
+    <div className="flex gap-10  justify-around max-bssm:flex-wrap">
       <JobDescription {...job} />
       <RecommendedJob />
     </div>

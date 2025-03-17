@@ -15,7 +15,7 @@ import { NavLink } from "react-router-dom"
  */
 export const NavLinks = () => {
     return (
-        <div className="flex gap-4 text-xl h-full items-center">
+        <div className="max-bssm:hidden flex gap-4 text-xl h-full items-center">
             {/* Link to job search page */}
             <NavLink to={"/find-jobs"} className={({isActive})=> isActive ? "flex border-t-[3px] text-[var(--color-electric-violet-300)] items-center h-full":""}>
                 Find Jobs

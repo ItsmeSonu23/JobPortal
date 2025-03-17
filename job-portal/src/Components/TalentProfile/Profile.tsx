@@ -1,10 +1,11 @@
-import { Button, Divider } from "@mantine/core"
+import { Avatar, Button, Divider } from "@mantine/core"
 import { IconBriefcase, IconMapPin } from "@tabler/icons-react"
 import { ExpCard } from "./ExpCard"
 import { Certification } from "./Certification"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getProfile } from "../../Services/ProfileService"
+import { useMediaQuery } from "@mantine/hooks"
 /**
  * Profile Component
  * 
@@ -58,11 +59,12 @@ import { getProfile } from "../../Services/ProfileService"
  * @returns {JSX.Element} A complete talent profile page
  */
 export const Profile = () => {
+    const matches = useMediaQuery(`(max-width: 475px)`)
     const { id } = useParams()
     const [profile, setProfile] = useState<any>(null)
     useEffect(() => {
         console.log(id);
-        
+
         window.scrollTo(0, 0)
         getProfile(id).then((res: any) => {
             setProfile(res)
@@ -70,24 +72,26 @@ export const Profile = () => {
             console.log(err)
         })
     }, [id])
-    return <div className="w-2/3">
+    return <div className="w-4/5 max-lgsm:w-full">
         <div className="relative">
-            <img className="rounded-t-2xl" src="/Profile/Banner.png" alt="" />
-            <img className="h-48 w-48 border-8 absolute -bottom-1/3 rounded-full left-3 border-[var(--color-mine-shaft-950)]" src={profile?.picture ? `data:image/png;base64,${profile?.picture}` : "/images/avatar.png"} alt="" />
+            <img className="rounded-t-2xl max-xlsm:h-40 max-lgsm:h-36 max-lgsm:w-full" src="/Profile/Banner.png" alt="" />
+            <div className="absolute -bottom-1/3 max-mdsm:-bottom-20 max-smsm:-bottom-18 max-xlsm:-bottom-16 left-3 flex items-center justify-center">
+                <Avatar className="!h-48 !w-48 max-mdsm:w-40 max-mdsm:h-40 max-smsm:!h-36 max-smsm:!w-36 max-xssm:!h-32 max-xssm:!w-32 border-8 absolute -bottom-1/3 rounded-full left-6 border-[var(--color-mine-shaft-950)]" src={profile?.picture ? `data:image/png;base64,${profile?.picture}` : "/images/avatar.png"} alt="" />
+            </div>
         </div>
         <div className="px-4 mt-25">
-            <div className="text-3xl font-semibold flex justify-between">{profile?.name}<Button color="darkorchid" variant="light">Message</Button></div>
-            <div className="text-xl flex gap-1 items-center"><IconBriefcase className="h-5 w-5" stroke={1.5} />{profile?.jobTitle} &bull; {profile?.company}</div>
-            <div className="text-lg flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
+            <div className="text-3xl max-xssm:text-2xl max-xsmm:text-xl font-semibold flex justify-between">{profile?.name}<Button size={matches ? "sm" : "md"} color="darkorchid" variant="light">Message</Button></div>
+            <div className="text-xl max-xssm:text-lg max-xsmm:text-base flex gap-1 items-center"><IconBriefcase className="h-5 w-5" stroke={1.5} />{profile?.jobTitle} &bull; {profile?.company}</div>
+            <div className="text-lg max-xssm:text-base max-xsmm:text-sm flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
                 <IconMapPin className="h-5 w-5" stroke={1.5} />{profile?.location}
             </div>
-            <div className="text-lg flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
+            <div className="text-lg max-xssm:text-base max-xsmm:text-sm flex gap-1 items-center text-[var(--color-mine-shaft-400)]">
                 <IconBriefcase className="h-5 w-5" stroke={1.5} />Experience: {profile?.totalExp} Years
             </div>
             <Divider mx="xs" my="xl" />
             <div className="px-3">
                 <div className="text-2xl font-semibold mb-3">About</div>
-                <div className="text-sm text-[var(--color-mine-shaft-400)] text-justify">
+                <div className="text-sm text-[var(--color-mine-shaft-400)] text-justify max-xssm:text-xs">
                     {profile?.about}
                 </div>
             </div>

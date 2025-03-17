@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { successNotification } from "../../Services/NotificationService"
 import { changeProfile } from "../../Slices/ProfileSlice"
-
+import { useMediaQuery } from "@mantine/hooks"
 /**
  * Skills Component
  * 
@@ -54,6 +54,7 @@ import { changeProfile } from "../../Slices/ProfileSlice"
  * @returns {JSX.Element} A skills display/edit interface
  */
 export const Skills = () => {
+    const matches = useMediaQuery(`(min-width: 475px)`)
     const dispatch = useDispatch()
     const [edit, setEdit] = useState(false)
     const[skills,setSkills] = useState<string[]>([])
@@ -83,10 +84,10 @@ export const Skills = () => {
 
     return (
         <div className="px-3">
-            <div className="text-2xl font-semibold mb-3 flex justify-between">Skills <div>{edit && <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={"lg"}>
+            <div className="text-2xl font-semibold mb-3 flex justify-between">Skills <div>{edit && <ActionIcon onClick={() => handleSave()} variant="subtle" color="green.8" size={matches ? "lg" : "md"}>
                 <IconCheck className="h-4/5 w-4/5" />
             </ActionIcon>}
-                <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={"lg"}>
+                <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={matches ? "lg" : "md"}>
                     {
                         edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />
                     }

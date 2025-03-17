@@ -4,7 +4,7 @@ import { useState } from "react"
 import { ExpCard } from "./ExpCard"
 import { ExpInput } from "./ExpInput"
 import { useSelector } from "react-redux"
-
+import { useMediaQuery } from "@mantine/hooks"
 /**
  * Experience Component
  * 
@@ -52,6 +52,7 @@ import { useSelector } from "react-redux"
  * @returns {JSX.Element} An experience management interface
  */
 export const Expirience = () => {
+    const matches = useMediaQuery(`(min-width: 475px)`)
     const profile = useSelector((state: any) => state.profile)
     const [addExp, setAddExp] = useState(false)
     const [edit, setEdit] = useState(false)
@@ -68,10 +69,10 @@ export const Expirience = () => {
             <div className="px-3 ">
                 <div className="text-2xl font-semibold mb-5 flex justify-between">Expirience
                     <div className="flex gap-2">
-                        <ActionIcon onClick={() => setAddExp(true)} variant="subtle" color="darkorchid" size={"lg"}>
+                        <ActionIcon onClick={() => setAddExp(true)} variant="subtle" color="darkorchid" size={matches ? "lg" : "md"}>
                             <IconPlus className="h-4/5 w-4/5" />
                         </ActionIcon>
-                        <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={"lg"}>
+                        <ActionIcon onClick={() => handleEdit()} variant="subtle" color={edit ? "red.8" : "darkorchid"} size={matches ? "lg" : "md"}>
                             {
                                 edit ? <IconX className="h-4/5 w-4/5" /> : <IconPencil className="h-4/5 w-4/5" />
                             }

@@ -57,8 +57,8 @@ import { footerLinks } from "../../Data/Data"
  */
 export const Footer = () => {
     const location = useLocation()
-    return location.pathname != "/signup" &&  location.pathname != "/login"  ? <div className="pt-20 pb-10 bg-[var(--color-mine-shaft-950)] flex gap-5 justify-around font-['Karla']">
-        <div className="w-1/4 flex flex-col gap-4">
+    return location.pathname != "/signup" &&  location.pathname != "/login"  ? <div className="pt-20 p-4 pb-10 bg-[var(--color-mine-shaft-950)] flex gap-8 justify-around font-['Karla'] flex-wrap">
+        <div className="w-1/4 max-smsm:w-1/3 max-xssm:w-1/2 max-xsmm:w-full p-5 flex flex-col gap-4">
             <div className="flex gap-1 items-center text-[var(--color-electric-violet-500)]">
                 <TbCloverFilled className="text-3xl" />
                 <div className="text-3xl font-semibold">

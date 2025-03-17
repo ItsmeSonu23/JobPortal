@@ -78,11 +78,11 @@ export const Profile = () => {
     }
    
     return (
-        <div className="w-4/5 mx-auto">
-            <div className="relative">
-                <img className="rounded-t-2xl" src="/Profile/Banner.png" alt="" />
-                <div ref={ref} className="absolute -bottom-1/3 left-3 flex items-center justify-center">
-                    <Avatar className="!h-48 !w-48 border-8 absolute -bottom-1/3 rounded-full left-3 border-[var(--color-mine-shaft-950)]" src={profile.picture?`data:image/jpeg;base64,${profile.picture}`:"/avatar.png" } alt="profile pic" />
+        <div className="w-4/5 max-lgsm:w-full mx-auto">
+            <div className="relative px-5">
+                <img className="rounded-t-2xl max-xssm:h-36 max-xssm:w-full" src="/Profile/Banner.png" alt="" />
+                <div ref={ref} className="absolute -bottom-1/3 max-mdsm:-bottom-20 max-smsm:-bottom-18 left-3 flex items-center justify-center">
+                    <Avatar className="!h-48 !w-48 max-mdsm:w-40 max-mdsm:h-40 max-smsm:!h-36 max-smsm:!w-36 max-xssm:!h-32 max-xssm:!w-32 border-8 absolute -bottom-1/3 rounded-full left-6 border-[var(--color-mine-shaft-950)]" src={profile.picture?`data:image/jpeg;base64,${profile.picture}`:"/avatar.png" } alt="profile pic" />
 
                     {hovered && <Overlay className="!rounded-full" color="#000" backgroundOpacity={0.75}/>}
                     {hovered&& <IconEdit className="absolute z-[300] w-16 h-16" />}
@@ -90,7 +90,7 @@ export const Profile = () => {
                 </div>
             </div>
 
-            <div className="px-4 mt-25">
+            <div className="px-5 mt-25">
                 {/* info section of the profile page */}
                 <Info />
                 <Divider mx="xs" my="xl" />
