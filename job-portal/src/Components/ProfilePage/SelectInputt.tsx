@@ -55,10 +55,10 @@ export const SelectInputt = (props: any) => {
     const [value, setValue] = useState<string | null>(null);
     const [search, setSearch] = useState('');
 
-    const exactOptionMatch = data.some((item) => item === search);
-    const filteredOptions = exactOptionMatch
+    const exactOptionMatch = Array.isArray(data) && data.some((item) => item === search);
+    const filteredOptions = Array.isArray(data) && exactOptionMatch
         ? data
-        : data.filter((item) => item?.toLowerCase().includes(search?.toLowerCase().trim()));
+        : Array.isArray(data) ? data.filter((item) => item?.toLowerCase().includes(search?.toLowerCase().trim())) : [];
 
     const options = filteredOptions.map((item) => (
         <Combobox.Option value={item} key={item}>
